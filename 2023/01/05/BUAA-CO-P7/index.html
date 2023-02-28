@@ -1,0 +1,446 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>计算机组成实验 P7 回顾 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="计算机组成实验 P7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成实验 P7 回顾">
+<meta property="og:url" content="http://example.com/2023/01/05/BUAA-CO-P7/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="计算机组成实验 P7">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/63b7167dbe43e0d30ef7c527.jpg">
+<meta property="article:published_time" content="2023-01-05T13:16:45.000Z">
+<meta property="article:modified_time" content="2023-02-11T08:57:54.813Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="CO">
+<meta property="article:tag" content="verilog">
+<meta property="article:tag" content="流水线">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/63b7167dbe43e0d30ef7c527.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/01/05/BUAA-CO-P7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机组成实验 P7 回顾',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-11 16:57:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/63b7167dbe43e0d30ef7c527.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机组成实验 P7 回顾</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-01-05T13:16:45.000Z" title="发表于 2023-01-05 21:16:45">2023-01-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/01/05/BUAA-CO-P7/" data-flag-title="计算机组成实验 P7 回顾"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>做完前六 <strong>P</strong> 之后，我们已经做出来一个相当厉害的流水线了。在 <strong>P7</strong> 中，我们的任务是增加外部中断响应和异常处理。</p>
+<p>本篇博客中我将结合我做 <strong>P7</strong> 的方法，按照我的搭建过程逐个讲解 <strong>P7</strong> 中所要完成的工作。</p>
+<p>注：本篇博客记录的是 <strong>21</strong> 级的 <strong>P7</strong> 搭建过程。计组课程组每年都可能会对细节有一些改动。因此建议自行甄别内容。最终实现细节还请以教程为准。</p>
+<h1 id="调整模块架构"><a href="#调整模块架构" class="headerlink" title="调整模块架构"></a>调整模块架构</h1><p>在 <strong>P7</strong> 中，我们需要对流水线的架构做一些调整。我们需要添加<strong>系统桥</strong>和两个<strong>计时器</strong>，这三个组件和我们在 <strong>P6</strong> 中搭建的 <strong>CPU</strong> 在同一级别。也就是这样的：</p>
+<p><img src="/../picture/P7_mips.png"></p>
+<h2 id="系统桥"><a href="#系统桥" class="headerlink" title="系统桥"></a>系统桥</h2><p>系统桥是 <strong>CPU</strong> 与外部组件进行通信的通道。我们的 <strong>CPU</strong> 与 <strong>DM</strong>、两个计时器、其他硬件之间的通信都需要经过系统桥进行。</p>
+<p>在实现系统桥的过程中，主要有两个方向的信息流：<strong>CPU</strong> 到外部，以及外部到 <strong>CPU</strong>。</p>
+<h3 id="CPU-到外部"><a href="#CPU-到外部" class="headerlink" title="CPU 到外部"></a><strong>CPU</strong> 到外部</h3><p>我们需要向外部传递的信息包括：</p>
+<ul>
+<li>读写的 <strong>DM</strong> 地址与使能信号。</li>
+<li>读写的计时器地址与使能信号。</li>
+<li>对于外部中断的响应信号。</li>
+</ul>
+<p>事实上这些信息的传播都是通过 <strong>store</strong> 类指令完成的。也就是说我们只将 <strong>P6</strong> 中 <strong>CPU</strong> 与 <strong>DM</strong> 通信的接口重新连接至系统桥内即可。</p>
+<p>重点在于系统桥内部对于地址的选择。</p>
+<p>对于常规读写 <strong>DM</strong>：不需要进行额外修改。</p>
+<h4 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h4><p>需要判断 <strong>CPU</strong> 中给出的存储地址是否在两个计时器的地址范围内。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> timer1_sel = (m_data_addr_in &gt;= <span class="number">32&#x27;h7f00</span>) &amp;&amp; (m_data_addr_in &lt;= <span class="number">32&#x27;h7f0b</span>);</span><br><span class="line"><span class="keyword">wire</span> timer2_sel = (m_data_addr_in &gt;= <span class="number">32&#x27;h7f10</span>) &amp;&amp; (m_data_addr_in &lt;= <span class="number">32&#x27;h7f1b</span>);</span><br><span class="line"><span class="comment">// m_data_addr_in 是从CPU处拿到的存储地址信号</span></span><br></pre></td></tr></table></figure>
+
+<p>若 <strong>store</strong> 的地址在这个范围内，说明我们要对计时器进行写入。将传给 <strong>timer</strong> 的信号进行相应的连接即可。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> timer1_WE = (&amp;m_data_byteen_in == <span class="number">1&#x27;b1</span>) &amp;&amp; (m_data_addr_in &gt;= <span class="number">32&#x27;h7f00</span>) &amp;&amp; (m_data_addr_in &lt;= <span class="number">32&#x27;h7f0b</span>);</span><br><span class="line"><span class="keyword">assign</span> timer2_WE = (&amp;m_data_byteen_in == <span class="number">1&#x27;b1</span>) &amp;&amp; (m_data_addr_in &gt;= <span class="number">32&#x27;h7f10</span>) &amp;&amp; (m_data_addr_in &lt;= <span class="number">32&#x27;h7f1b</span>);</span><br><span class="line"><span class="keyword">assign</span> timer1_addr = m_data_addr_in[<span class="number">31</span>:<span class="number">2</span>];</span><br><span class="line"><span class="keyword">assign</span> timer2_addr = m_data_addr_in[<span class="number">31</span>:<span class="number">2</span>];</span><br><span class="line"><span class="keyword">assign</span> timer1_Din = m_data_wdata_in;</span><br><span class="line"><span class="keyword">assign</span> timer2_Din = m_data_wdata_in;</span><br></pre></td></tr></table></figure>
+
+<p>注：前两行代码中 <code>&amp;m_data_byteen_in == 1&#39;b1</code> 是因为对计时器写入必须按字写入。</p>
+<h4 id="中断响应"><a href="#中断响应" class="headerlink" title="中断响应"></a>中断响应</h4><p>课程组给出了中断响应时应写入的地址。注意，什么时候进行中断的响应是软件决定的事情，不需要硬件做决定。我们只需要在 <strong>写入 “中断响应对应的地址” 时将响应信号传出 CPU</strong> 即可。</p>
+<p>在系统桥中的代码连接如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Int_sel = (m_data_addr_in &gt;= <span class="number">32&#x27;h7f20</span>) &amp;&amp; (m_data_addr_in &lt;= <span class="number">32&#x27;h7f23</span>) &amp;&amp; (|m_data_byteen_in == <span class="number">1&#x27;b1</span>);</span><br><span class="line"><span class="keyword">assign</span> m_int_addr = Int_sel == <span class="number">1&#x27;b1</span> ? m_data_addr_in : <span class="number">32&#x27;h0</span>;</span><br><span class="line"><span class="keyword">assign</span> m_int_byteen = Int_sel == <span class="number">1&#x27;b1</span> ? m_data_byteen_in : <span class="number">4&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="外部到-CPU"><a href="#外部到-CPU" class="headerlink" title="外部到 CPU"></a>外部到 <strong>CPU</strong></h3><p>外部至 <strong>CPU</strong> 的信号除了 <strong>load</strong> 类指令的相关信号外，还要增加 <strong>HWInt</strong> 信号来实现<strong>外部中断</strong>。</p>
+<p>注意到 <strong>load</strong> 类指令可能从计时器中读取数据，因此我们在连接信号时要对来自计时器的信号做出相应的选择。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> m_data_rdata_out = timer1_sel == <span class="number">1&#x27;b1</span> ? timer1_Dout :</span><br><span class="line">						  timer2_sel == <span class="number">1&#x27;b1</span> ? timer2_Dout :</span><br><span class="line">						  m_data_rdata_in;</span><br></pre></td></tr></table></figure>
+
+<p><strong>HWInt</strong> 共有六位，从低位开始依次是：<strong>timer1</strong> 的中断信号、<strong>timer2</strong> 的中断信号、外部中断信号与 <strong>3’b0</strong>。</p>
+<p>即：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> HWInt = &#123;<span class="number">3&#x27;b0</span>, interrupt_in, timer2_IRQ, timer1_IRQ&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <strong>interrupt_in</strong> 是来自外部的中断信号。</p>
+<h2 id="计时器-1"><a href="#计时器-1" class="headerlink" title="计时器"></a>计时器</h2><p>计时器这部分我们简单的阅读源码，理解后大致了解各个端口的连接方式即可。计时器的源码在教程中已经给出。</p>
+<p>注意，由于教程未来可能会有版本更新，计时器的具体连接方式也可能有变化。笔者不保证我的连接方式一定是正确的。还请同学们依据实际情况自行定夺。</p>
+<h1 id="宏观-PC"><a href="#宏观-PC" class="headerlink" title="宏观 PC"></a>宏观 <strong>PC</strong></h1><p>由于我们要封装流水线，即让流水线看上去像一个单周期 <strong>CPU</strong>，所以我们使用了宏观 <strong>PC</strong> 这一概念。宏观 <strong>PC</strong> 表达的是 <strong>CPU</strong> 当前正在运转哪一条指令。</p>
+<p>宏观 <strong>PC</strong> 要和协处理器 <strong>CP0</strong> 处于同一流水级中。有关协处理器的设计后文详谈。依据实现方式的不同，<strong>CP0</strong> 放在 <strong>E</strong> 级和 <strong>M</strong> 级均可。一般而言放在 <strong>M</strong> 级的同学居多，所以我也放在了 <strong>M</strong> 级，以便于和同学（大佬）们进行对拍。所以我宏观 <strong>PC</strong> 也就是 <strong>PC_M</strong> 的值。</p>
+<p>在异常发生时，我们要保证产生异常的那条指令不会对 <strong>CPU</strong> 的状态造成影响。并将发生异常的指令作为 <strong>受害指令</strong> 存入协处理器的 <strong>EPC</strong> 中。这部分之后再详谈。</p>
+<h1 id="侦测异常"><a href="#侦测异常" class="headerlink" title="侦测异常"></a>侦测异常</h1><p>在 <strong>P7</strong> 中，最重要的任务是侦测程序运行过程中产生的 <strong>异常</strong>。</p>
+<p>我们首先要侦测异常，然后根据异常的种类生成相应的 <strong>Exccode</strong> 码，并将 <strong>Exccode</strong> 码存入协处理器 <strong>CP0</strong> 中。</p>
+<h2 id="异常的种类"><a href="#异常的种类" class="headerlink" title="异常的种类"></a>异常的种类</h2><p>我们要实现的异常分为以下几类：</p>
+<ul>
+<li><strong>AdEL</strong>（<strong>Exccode</strong> 码为 <strong>5’d4</strong>）<ul>
+<li>取 <strong>pc</strong> 的值时地址不对齐。</li>
+<li><strong>lw</strong> 未字对齐与 <strong>lh</strong> 未半字对齐。</li>
+<li>尝试使用 <strong>lh</strong> 和 <strong>lb</strong> 取 <strong>timer</strong> 的寄存器中的值。</li>
+<li>计算取数地址的过程中出现加法溢出情况。</li>
+<li>取数地址不在允许的范围中。</li>
+</ul>
+</li>
+<li><strong>AdES</strong>（<strong>Exccode</strong> 码为 <strong>5’d5</strong>）<ul>
+<li><strong>sw</strong> 未字对齐与 <strong>lh</strong> 未半字对齐。</li>
+<li>尝试使用 <strong>sh</strong> 和 <strong>sb</strong> 向 <strong>timer</strong> 的寄存器中存值，或尝试向 <strong>timer</strong> 中的 <strong>Count</strong> 寄存器存值。</li>
+<li>计算存数地址的过程中出现加法溢出情况。</li>
+<li>存数地址不在允许的范围中。</li>
+</ul>
+</li>
+<li><strong>Syscall</strong>（<strong>Exccode</strong> 码为 5’d8）<ul>
+<li>由指令 <strong>syscall</strong> 产生的系统调用异常。</li>
+</ul>
+</li>
+<li><strong>RI</strong>（<strong>Exccode</strong> 码为 <strong>5’d10</strong>）<ul>
+<li>未知的指令码。</li>
+</ul>
+</li>
+<li><strong>Ov</strong>（<strong>Exccode</strong> 码为 <strong>5’d12</strong>）<ul>
+<li>加减指令的计算过程中出现溢出情况。</li>
+</ul>
+</li>
+</ul>
+<h2 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h2><p>笔者使用 <strong>OverFlow</strong> 指示溢出的产生。对溢出的判读需要在 <strong>E</strong> 级的 <strong>ALU</strong> 中进行。其具体过程在指令集中已有说明。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>]tempAdd = &#123;A[<span class="number">31</span>], A&#125; + &#123;B[<span class="number">31</span>], B&#125;;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>]tempSub = &#123;A[<span class="number">31</span>], A&#125; - &#123;B[<span class="number">31</span>], B&#125;;</span><br><span class="line"><span class="keyword">assign</span> OverFlowE = (ALUOp == <span class="number">4&#x27;b0000</span> &amp;&amp; tempAdd[<span class="number">32</span>] ^ tempAdd[<span class="number">31</span>] == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> :</span><br><span class="line">                   (ALUOp == <span class="number">4&#x27;b0001</span> &amp;&amp; tempSub[<span class="number">32</span>] ^ tempSub[<span class="number">31</span>] == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> : <span class="number">1&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <strong>ALUOp</strong> 是我的实现方式中添加的信号。这个信号指示 <strong>ALU</strong> 要进行哪种运算。<strong>ALUOp</strong> 为 <strong>4’b0000</strong> 代表当前进行加法运算；<strong>ALUOp</strong> 为 <strong>4’b0001</strong> 代表当前进行减法运算。</p>
+<p><strong>A</strong> 和 <strong>B</strong> 分别是传入 <strong>ALU</strong> 的两个操作数。</p>
+<p><strong>OverFlow</strong> 在 <strong>E</strong> 级产生，需要流水到 <strong>M</strong> 级才能判断具体出现了哪种异常。</p>
+<h2 id="Exccode-信号的产生"><a href="#Exccode-信号的产生" class="headerlink" title="Exccode 信号的产生"></a><strong>Exccode</strong> 信号的产生</h2><p>我们可以创建一个模块来产生 <strong>Exccode</strong> 信号。这里我将其称为 <strong>ExccodeOccur</strong>。此模块最好和协处理器位于同一流水级。（设置在 <strong>M</strong> 级中）</p>
+<p>在清楚了各个异常产生的条件后，依次产生各个异常即可。</p>
+<h3 id="AdEL"><a href="#AdEL" class="headerlink" title="AdEL"></a><strong>AdEL</strong></h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> AdEL = pcErrorM == <span class="number">1&#x27;b1</span> ? <span class="number">1&#x27;b1</span> : <span class="comment">//pcError</span></span><br><span class="line">			(Lw == <span class="number">1&#x27;b1</span> &amp;&amp; (ALUAnsM[<span class="number">0</span>] | ALUAnsM[<span class="number">1</span>])) ? <span class="number">1&#x27;b1</span> : <span class="comment">//lw未字对齐</span></span><br><span class="line">			(Lh == <span class="number">1&#x27;b1</span> &amp;&amp; ALUAnsM[<span class="number">0</span>]) ? <span class="number">1&#x27;b1</span> : <span class="comment">//lh未半字对齐</span></span><br><span class="line">			((Lh | Lb) &amp;&amp; (ALUAnsM &gt;= <span class="number">32&#x27;h00007f00</span> &amp;&amp; ALUAnsM &lt;= <span class="number">32&#x27;h00007f1b</span>)) ? <span class="number">1&#x27;b1</span> : <span class="comment">//取Timer寄存器的值</span></span><br><span class="line">			((Lw | Lh | Lb) &amp;&amp; OverFlowM == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> :<span class="comment">//计算地址时加法溢出</span></span><br><span class="line">			((Lw | Lh | Lb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f23</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">			((Lw | Lh | Lb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f0b</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f10</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">			((Lw | Lh | Lb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f1b</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f20</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">			((Lw | Lh | Lb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00002fff</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f00</span>)) ? <span class="number">1&#x27;b1</span> :<span class="number">1&#x27;b0</span>; <span class="comment">//取数地址超出上限</span></span><br><span class="line"><span class="comment">// 注：其实可以简化但是因为写完后感觉工工整整的看上去很帅气所以就没有改</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="AdES"><a href="#AdES" class="headerlink" title="AdES"></a><strong>AdES</strong></h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> AdES = (Sw == <span class="number">1&#x27;b1</span> &amp;&amp; (ALUAnsM[<span class="number">0</span>] | ALUAnsM[<span class="number">1</span>])) ? <span class="number">1&#x27;b1</span> :<span class="comment">//sw未字对齐</span></span><br><span class="line">            (Sh == <span class="number">1&#x27;b1</span> &amp;&amp; ALUAnsM[<span class="number">0</span>]) ? <span class="number">1&#x27;b1</span> :<span class="comment">//sh未半字对齐</span></span><br><span class="line">            ((Sh | Sb) &amp;&amp; (ALUAnsM &gt;= <span class="number">32&#x27;h00007f00</span> &amp;&amp; ALUAnsM &lt;= <span class="number">32&#x27;h00007f1b</span>)) ? <span class="number">1&#x27;b1</span> :<span class="comment">//存Timer寄存器的值</span></span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; OverFlowM == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> :<span class="comment">//计算地址时加法溢出</span></span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; (ALUAnsM == <span class="number">32&#x27;h00007f08</span> || ALUAnsM == <span class="number">32&#x27;h00007f18</span>)) ? <span class="number">1&#x27;b1</span> :<span class="comment">//向计时器的Count存值</span></span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f23</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f0b</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f10</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00007f1b</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f20</span>)) ? <span class="number">1&#x27;b1</span> : </span><br><span class="line">            ((Sw | Sh | Sb) &amp;&amp; (ALUAnsM &gt; <span class="number">32&#x27;h00002fff</span> &amp;&amp; ALUAnsM &lt; <span class="number">32&#x27;h00007f00</span>)) ? <span class="number">1&#x27;b1</span> :<span class="number">1&#x27;b0</span>;<span class="comment">//存数地址超出上限</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Syscall"><a href="#Syscall" class="headerlink" title="Syscall"></a><strong>Syscall</strong></h3><p>直接识别指令是否是 <strong>syscall</strong> 就行。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Syscall = (func == <span class="number">6&#x27;b001100</span> &amp;&amp; R_R == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> : <span class="number">1&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RI"><a href="#RI" class="headerlink" title="RI"></a><strong>RI</strong></h3><p><strong>RI</strong> 信号在 <strong>Controller</strong> 中产生，然后流水到 <strong>ExccodeOccur</strong> 所在的流水级，参与 <strong>Exccode</strong> 的生成。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在Controller中产生，也就是在D级产生。</span></span><br><span class="line"><span class="keyword">assign</span> RID = ~(Beq | Bgez| Bne | Addi| Andi| Ori | Lui | J   | </span><br><span class="line">               Jal | Sb  | Sh  | Sw  | Lb  | Lh  | Lw  | Add | </span><br><span class="line">               Sub | And | Or  | Sll | Srl | Jr  | Slt | Sltu| </span><br><span class="line">               Mult|Multu| Div | Divu| Mfhi| Mflo| Mthi| Mtlo| </span><br><span class="line">            Syscall| Mfc0| Mtc0| Eret);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ov"><a href="#Ov" class="headerlink" title="Ov"></a><strong>Ov</strong></h3><p>注意是由加减法运算指令导致的溢出才会产生 <strong>Ov</strong> 信号。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Ov = ((Add | Addi | Sub) &amp;&amp; OverFlowM == <span class="number">1&#x27;b1</span>) ? <span class="number">1&#x27;b1</span> : <span class="number">1&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Exccode"><a href="#Exccode" class="headerlink" title="Exccode"></a><strong>Exccode</strong></h3><p>在得到所需的各个信号后，进行判断、生成即可。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> ExcCodeM = AdEL == <span class="number">1&#x27;b1</span> ? <span class="number">5&#x27;d4</span> :</span><br><span class="line">                  AdES == <span class="number">1&#x27;b1</span> ? <span class="number">5&#x27;d5</span> :</span><br><span class="line">                  Syscall == <span class="number">1&#x27;b1</span> ? <span class="number">5&#x27;d8</span> :</span><br><span class="line">                  RIM  == <span class="number">1&#x27;b1</span> ? <span class="number">5&#x27;d10</span> :</span><br><span class="line">                  Ov   == <span class="number">1&#x27;b1</span> ? <span class="number">5&#x27;d12</span> : <span class="number">5&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="协处理器-CP0-设计"><a href="#协处理器-CP0-设计" class="headerlink" title="协处理器 CP0 设计"></a>协处理器 <strong>CP0</strong> 设计</h1><p><strong>CP0</strong> 的设计是整个 <strong>P7</strong> 的关键所在。这里特别感谢 <strong>roief</strong> 佬及其博客。<strong>roief</strong> 的博客指路：<a target="_blank" rel="noopener" href="https://roife.github.io/2021/01/02/buaa-co-lab-p7/">P7 MIPS 微体系</a></p>
+<h2 id="CP0-的端口"><a href="#CP0-的端口" class="headerlink" title="CP0 的端口"></a><strong>CP0</strong> 的端口</h2><p>我个人的 <strong>CP0</strong> 端口完全按照教程所推荐的设计。即：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">moudle CP0(</span><br><span class="line">    <span class="keyword">input</span> clk,</span><br><span class="line">    <span class="keyword">input</span> reset,</span><br><span class="line">    <span class="keyword">input</span> en,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] CP0Add,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] CP0In,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] CP0Out,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] VPC,</span><br><span class="line">    <span class="keyword">input</span> BDIn,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] ExcCodeIn,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">0</span>] HWInt,</span><br><span class="line">    <span class="keyword">input</span> EXLClr,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] EPCOut,</span><br><span class="line">    <span class="keyword">output</span> Req</span><br><span class="line">    );</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>对于各个输入端口的粗略解释：</p>
+<p><strong>CP0Add</strong> 和 <strong>CP0In</strong> 都是在实现 <strong>mtc0</strong> 和 <strong>mfc0</strong> 中要用到的。<strong>VPC</strong> 是受害指令的宏观 <strong>PC</strong>，此处即为 <strong>M</strong> 级 <strong>PC</strong>。</p>
+<p><strong>ExccodeIn</strong> 是我们在 <strong>ExccodeOccur</strong> 中产生的 <strong>Exccode</strong>。<strong>HWInt</strong> 是我们在系统桥中产生并传入 <strong>CPU</strong> 的，传入 <strong>CPU</strong> 后直接连接到 <strong>CP0</strong> 的端口上。</p>
+<p><strong>EXLClr</strong> 由指令 <strong>eret</strong> 产生。</p>
+<p><strong>BDIn</strong> 指示当前指令是不是延迟槽内部指令，这与 <strong>EPC</strong> 的产生有关。</p>
+<h2 id="CP0-中寄存器的实现"><a href="#CP0-中寄存器的实现" class="headerlink" title="CP0 中寄存器的实现"></a><strong>CP0</strong> 中寄存器的实现</h2><p>在 <strong>CP0</strong> 中我们要实现三个寄存器：<strong>SR</strong>、<strong>Cause</strong>、<strong>EPC</strong>。</p>
+<p>为了便于 <strong>mtc0</strong> 和 <strong>mfc0</strong> 的实现以及不知道这两个指令会不会存取我们尚未实现的寄存器，我的 <strong>CP0</strong> 设计中添加了一个寄存器堆：<code>reg [31:0]CP[0:31];</code>，并添加以下宏定义便于代码编写（注：下文的代码使用到的宏定义均位于此处）：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">define</span> SR CP[12]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> Cause CP[13]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> EPC CP[14]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> IE CP[12][0]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> EXL CP[12][1]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> IM CP[12][15:10]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> BD CP[13][31]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> IP CP[13][15:10]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> ExcCode CP[13][6:2]</span></span><br></pre></td></tr></table></figure>
+
+<p>各个域的功能：</p>
+<ul>
+<li><strong>IE</strong>：是否允许中断。</li>
+<li><strong>EXL</strong>：是否处于核心态（异常中断处理程序中）。</li>
+<li><strong>IM</strong>：六个位分别指示是否允许发生对应的中断。</li>
+<li><strong>BD</strong>：是否是延迟槽中指令</li>
+<li><strong>IP</strong>：每周期更新，记录 <strong>HWInt</strong> 的值。</li>
+<li><strong>ExcCode</strong>：发生异常时更新，记录异常码。</li>
+</ul>
+<p>事后得知貌似是不会存取我们没有实现的寄存器的……不过这么写实现 <strong>mtc0</strong> 和 <strong>mfc0</strong> 都很方便，所以也是有其优点的。实际上协处理器 <strong>CP0</strong> 中就是包含有 <strong>32</strong> 个寄存器，因此这样实现可以说是毫无毛病（乐）。</p>
+<h2 id="BD-的产生"><a href="#BD-的产生" class="headerlink" title="BD 的产生"></a><strong>BD</strong> 的产生</h2><p><strong>BD</strong> 这个信号是在外部产生并传入 <strong>CP0</strong> 中，指示当前指令是否处于延迟槽内。这里有一处要注意的地方是：在产生 <strong>BD</strong> 时，不管跳转指令是否跳转，都要将其视为处于延迟槽内。</p>
+<p>我在 <strong>F</strong> 级产生这一信号，从而满足 <strong>BD</strong> 的产生晚于跳转指令一周期的条件。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> BDF = JalD | JrD | BeqD | BneD | <span class="number">1&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CP0Out-和-EPCOut"><a href="#CP0Out-和-EPCOut" class="headerlink" title="CP0Out 和 EPCOut"></a><strong>CP0Out</strong> 和 <strong>EPCOut</strong></h2><p>很方便的，我的 <strong>CP0Out</strong> 的产生方式为：<code>assign CP0Out = CP[CP0Add];</code>，一行搞定。</p>
+<p>相应的，<strong>EPCOut</strong> 的产生方式为：<code>assign EPCOut = `EPC;</code>。</p>
+<h2 id="EPC-的产生"><a href="#EPC-的产生" class="headerlink" title="EPC 的产生"></a><strong>EPC</strong> 的产生</h2><p>对于 <strong>EPC</strong> 的产生，要注意：如果指令是延迟槽指令（即 <code>BDIn == 1&#39;b1</code>），那么我们记录的 <strong>EPC</strong> 应当是其所属的跳转指令（即受害指令的上一条指令，<code>VPC - 32&#39;d4</code>）。</p>
+<h2 id="Req-的产生"><a href="#Req-的产生" class="headerlink" title="Req 的产生"></a><strong>Req</strong> 的产生</h2><p>注：这部分参照了 <strong>roief</strong> 佬的写法。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> IntReq = (|(HWInt &amp; `IM)) &amp; !`EXL &amp; `IE; <span class="comment">// 允许当前中断 且 不在中断异常中 且 允许中断发生</span></span><br><span class="line"><span class="keyword">wire</span> ExcReq = (|ExcCodeIn) &amp; !`EXL; <span class="comment">// 存在异常 且 不在中断中</span></span><br><span class="line"><span class="keyword">assign</span> Req  = IntReq | ExcReq;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Req</strong> 的产生就意味着我们要进入异常处理程序了。除了要在 <strong>CP0</strong> 中做出改变外，我们还需要在 <strong>CPU</strong> 中做出相应的操作。下文再说。</p>
+<h2 id="CP0-的时序逻辑"><a href="#CP0-的时序逻辑" class="headerlink" title="CP0 的时序逻辑"></a><strong>CP0</strong> 的时序逻辑</h2><p>遵循设计即可。</p>
+<p>结合注释观看效果更佳。</p>
+<p>这里提一个要注意的点：当中断和异常同时发生时，要优先响应中断，即向 <strong>&#96;ExcCode</strong> 存入的值应当是象征中断的 <strong>0</strong>。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span> i;</span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(reset == <span class="number">1&#x27;b1</span>) <span class="keyword">begin</span></span><br><span class="line">        i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i = i + <span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">            CP[i] = <span class="number">32&#x27;b0</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(en == <span class="number">1&#x27;b1</span>) <span class="keyword">begin</span> <span class="comment">// 使能信号为真时将数据写入对应的寄存器</span></span><br><span class="line">            CP[CP0Add] = CP0In;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span>(Req == <span class="number">1&#x27;b1</span>) <span class="keyword">begin</span> <span class="comment">// 当异常或中断发生时</span></span><br><span class="line">            `EXL &lt;= <span class="number">1&#x27;b1</span>;</span><br><span class="line">            `ExcCode &lt;= IntReq == <span class="number">1&#x27;b1</span> ? <span class="number">0</span> : ExcCodeIn; <span class="comment">// 中断的优先级高于异常</span></span><br><span class="line">            `EPC &lt;= BDIn == <span class="number">1&#x27;b1</span> ? VPC - <span class="number">32&#x27;d4</span> : VPC; <span class="comment">// 结合BDIn生成EPC</span></span><br><span class="line">            `BD &lt;= BDIn;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span>(EXLClr == <span class="number">1&#x27;b1</span>) <span class="keyword">begin</span></span><br><span class="line">            `EXL &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span>((en == <span class="number">1&#x27;b1</span> &amp;&amp; CP0Add == <span class="number">13</span>)) <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">// 这里是为了防止mtc0的目标寄存器是Cause时会对IP域写入两次</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">            `IP &lt;= HWInt; <span class="comment">//每周期更新IP的值</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="REQ-发生时"><a href="#REQ-发生时" class="headerlink" title="REQ 发生时"></a><strong>REQ</strong> 发生时</h1><p>当 <strong>CP0</strong> 中的 <strong>Req</strong> 信号处于高位，即我们要进入异常处理程序时，我们要对流水线进行以下处理：</p>
+<ul>
+<li>清空 <strong>D, E, M, W</strong> 级流水线寄存器。实现上可以直接将 <strong>Req</strong> 信号接入 <strong>reset</strong> 中。</li>
+<li>将 <strong>PC</strong> 的值强制修改到异常处理程序的入口：<code>32&#39;h00004180</code>。</li>
+<li>保证异常发生时不会对 <strong>DM</strong> 等外部模块产生写信号（即 <code>m_data_byteen == 4&#39;h0</code>）。</li>
+<li>正处于 <strong>E</strong> 级的指令不应修改乘除模块。</li>
+</ul>
+<h1 id="指令拓展"><a href="#指令拓展" class="headerlink" title="指令拓展"></a>指令拓展</h1><p>在 <strong>P7</strong> 中，我们要拓展以下几个指令：<code>syscall, mfc0, mtc0, eret</code></p>
+<p>其中 <strong>syscall</strong> 没什么好说的，产生相应的异常码就行。</p>
+<p><strong>mfc0</strong> 和 <strong>mtc0</strong> 的实现有些类似于 <strong>mfhi</strong>，<strong>mthi</strong> 。根据指令集进行拓展即可。此外根据个人实现的不同可能需要处理和 <strong>mfc0</strong> 与 <strong>mtc0</strong> 相关的转发（增加 <strong>W</strong> 级到 <strong>M</strong> 级的通路等），还请注意。</p>
+<p><strong>eret</strong> 要修改 <strong>PC</strong> 的值，返回 <strong>EPC</strong> 处继续执行指令。此处要有一个数据冲突问题需要注意：</p>
+<p>当 <strong>mfc0</strong> 要修改 <strong>CP0</strong> 中的 <strong>14</strong> 号寄存器（即 <strong>&#96;EPC</strong>），且后面跟着 <strong>eret</strong> 时，要进行相应的阻塞。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> stall_eret = EretD &amp; ((Mtc0E &amp; (instrE[<span class="number">15</span>:<span class="number">11</span>] == <span class="number">5&#x27;d14</span>)) | (Mtc0M &amp; (instrM[<span class="number">15</span>:<span class="number">11</span>] == <span class="number">5&#x27;d14</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>此外，当 <strong>eret</strong> 流水至 <strong>M</strong> 级时要将 <strong>CP0</strong> 中的 <strong>&#96;EXL</strong> 置 <strong>0</strong>。</p>
+<h1 id="修改-PC-的信号优先级"><a href="#修改-PC-的信号优先级" class="headerlink" title="修改 PC 的信号优先级"></a>修改 <strong>PC</strong> 的信号优先级</h1><p>优先级为：<strong>reset &gt; REQ &gt; eret &gt; 其他</strong></p>
+<p>自行体悟一下即可，不作过多解释。</p>
+<h1 id="阻塞时中断产生的问题"><a href="#阻塞时中断产生的问题" class="headerlink" title="阻塞时中断产生的问题"></a>阻塞时中断产生的问题</h1><p>在 <strong>P6</strong> 的 <strong>CPU</strong> 中，当我们阻塞时插入 <strong>nop</strong>，<strong>nop</strong> 对应的 <strong>pc</strong> 值一般是 <strong>0</strong>。这个设计在 <strong>P7</strong> 中会招致问题：当处于阻塞时外部产生了中断信号，我们记录的 <strong>EPC</strong> 将会是 <strong>0</strong>。这会导致错误的产生。</p>
+<p>正确的处理方法，是在阻塞时让 <strong>pc</strong> 和 <strong>BD</strong> 这两个信号依旧正常流水。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p><strong>P7</strong> 的工程量还是很大的。往年 <strong>P7</strong> 也被称为是最玄学的一 <strong>P</strong>。今年我在搭建时据说教程大更新，因此实际上并没有感觉有那么的 “玄学”。计组课程在不断地改进啊（喜）。</p>
+<p>今年因为 <strong>P8</strong> 和烤漆完全撞上的缘故（考完概统的当天晚上进行 <strong>P8</strong> 上机），为了复习期末，不得已放弃了做 <strong>P8</strong> 的想法，不得不说是一个计组学习中的遗憾。</p>
+<p>计组回忆的这一系列到这就结束了。虽然过程艰辛又曲折，但是回顾已有的成果，还是会有一种 “我都已经做出来这么多东西了啊！” 的感叹。</p>
+<p>不知读者在学习计组的过程中是否体会到了乐趣呢？</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/01/05/BUAA-CO-P7/">http://example.com/2023/01/05/BUAA-CO-P7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CO/">CO</a><a class="post-meta__tags" href="/tags/verilog/">verilog</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/">流水线</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/63b7167dbe43e0d30ef7c527.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/02/28/OO-hw1/"><img class="prev-cover" src="https://pic.imgdb.cn/item/63fdbc21f144a01007d21b1f.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">面向对象课程 HW1</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/05/BUAA-CO-P6/"><img class="next-cover" src="https://pic.imgdb.cn/item/63b6bc84be43e0d30e3f8224.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机组成实验 P6 回顾</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/01/02/BUAA-CO-P5/" title="计算机组成实验 P5 回顾"><img class="cover" src="https://pic.imgdb.cn/item/63b2f5efbe43e0d30e83ac77.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-02</div><div class="title">计算机组成实验 P5 回顾</div></div></a></div><div><a href="/2023/01/05/BUAA-CO-P6/" title="计算机组成实验 P6 回顾"><img class="cover" src="https://pic.imgdb.cn/item/63b6bc84be43e0d30e3f8224.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-05</div><div class="title">计算机组成实验 P6 回顾</div></div></a></div><div><a href="/2022/12/31/BUAA-CO-P0-P2/" title="计算机组成实验 P0 到 P2 回顾"><img class="cover" src="https://pic.imgdb.cn/item/63afd5692bbf0e799465bfc0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="title">计算机组成实验 P0 到 P2 回顾</div></div></a></div><div><a href="/2023/01/01/BUAA-CO-P4/" title="计算机组成实验 P4 回顾"><img class="cover" src="https://pic.imgdb.cn/item/63b2b0945d94efb26f2381ee.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-01</div><div class="title">计算机组成实验 P4 回顾</div></div></a></div><div><a href="/2022/12/31/BUAA-CO-P3/" title="计算机组成实验 P3 回顾"><img class="cover" src="https://pic.imgdb.cn/item/63b073292bbf0e79948632fc.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-31</div><div class="title">计算机组成实验 P3 回顾</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E6%A8%A1%E5%9D%97%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">调整模块架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A1%A5"><span class="toc-number">2.1.</span> <span class="toc-text">系统桥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-%E5%88%B0%E5%A4%96%E9%83%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">CPU 到外部</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">计时器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">中断响应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%88%B0-CPU"><span class="toc-number">2.1.2.</span> <span class="toc-text">外部到 CPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E6%97%B6%E5%99%A8-1"><span class="toc-number">2.2.</span> <span class="toc-text">计时器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8F%E8%A7%82-PC"><span class="toc-number">3.</span> <span class="toc-text">宏观 PC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%A6%E6%B5%8B%E5%BC%82%E5%B8%B8"><span class="toc-number">4.</span> <span class="toc-text">侦测异常</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">异常的种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="toc-number">4.2.</span> <span class="toc-text">溢出判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exccode-%E4%BF%A1%E5%8F%B7%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-number">4.3.</span> <span class="toc-text">Exccode 信号的产生</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AdEL"><span class="toc-number">4.3.1.</span> <span class="toc-text">AdEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdES"><span class="toc-number">4.3.2.</span> <span class="toc-text">AdES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Syscall"><span class="toc-number">4.3.3.</span> <span class="toc-text">Syscall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RI"><span class="toc-number">4.3.4.</span> <span class="toc-text">RI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ov"><span class="toc-number">4.3.5.</span> <span class="toc-text">Ov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exccode"><span class="toc-number">4.3.6.</span> <span class="toc-text">Exccode</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%8F%E5%A4%84%E7%90%86%E5%99%A8-CP0-%E8%AE%BE%E8%AE%A1"><span class="toc-number">5.</span> <span class="toc-text">协处理器 CP0 设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CP0-%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-number">5.1.</span> <span class="toc-text">CP0 的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CP0-%E4%B8%AD%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.2.</span> <span class="toc-text">CP0 中寄存器的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BD-%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-number">5.3.</span> <span class="toc-text">BD 的产生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CP0Out-%E5%92%8C-EPCOut"><span class="toc-number">5.4.</span> <span class="toc-text">CP0Out 和 EPCOut</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EPC-%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-number">5.5.</span> <span class="toc-text">EPC 的产生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Req-%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-number">5.6.</span> <span class="toc-text">Req 的产生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CP0-%E7%9A%84%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91"><span class="toc-number">5.7.</span> <span class="toc-text">CP0 的时序逻辑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#REQ-%E5%8F%91%E7%94%9F%E6%97%B6"><span class="toc-number">6.</span> <span class="toc-text">REQ 发生时</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%8B%93%E5%B1%95"><span class="toc-number">7.</span> <span class="toc-text">指令拓展</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-PC-%E7%9A%84%E4%BF%A1%E5%8F%B7%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">8.</span> <span class="toc-text">修改 PC 的信号优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E6%97%B6%E4%B8%AD%E6%96%AD%E4%BA%A7%E7%94%9F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">9.</span> <span class="toc-text">阻塞时中断产生的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">10.</span> <span class="toc-text">结语</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

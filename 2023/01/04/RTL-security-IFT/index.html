@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>硬件信息流追踪与 RTL 代码安全性分析综述 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="关于 IFT 与 RTL 代码安全方面的调研">
+<meta property="og:type" content="article">
+<meta property="og:title" content="硬件信息流追踪与 RTL 代码安全性分析综述">
+<meta property="og:url" content="http://example.com/2023/01/04/RTL-security-IFT/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="关于 IFT 与 RTL 代码安全方面的调研">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/63b51922be43e0d30eb84218.jpg">
+<meta property="article:published_time" content="2023-01-04T06:04:06.000Z">
+<meta property="article:modified_time" content="2023-02-11T08:57:54.813Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="IFT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/63b51922be43e0d30eb84218.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/01/04/RTL-security-IFT/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '硬件信息流追踪与 RTL 代码安全性分析综述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-11 16:57:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/63b51922be43e0d30eb84218.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">硬件信息流追踪与 RTL 代码安全性分析综述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-01-04T06:04:06.000Z" title="发表于 2023-01-04 14:04:06">2023-01-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/01/04/RTL-security-IFT/" data-flag-title="硬件信息流追踪与 RTL 代码安全性分析综述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
+<li><p>计算机安全的<strong>核心原则</strong> &#x3D; 维护所计算信息的<strong>保密性</strong> +  维护所计算信息的<strong>完整性</strong></p>
+<p>保密性 &#x3D; 信息只开放给授权用户</p>
+<p>完整性 &#x3D; 维护信息的准确性 + 一致性</p>
+</li>
+<li><p>信息流跟踪（<strong>IFT</strong>）是一种模拟系统计算时信息传播方式的安全技术。</p>
+<p>特点：拥有一些 <strong>tag</strong> 来表示安全类别，且这些 <strong>tag</strong> 可以更新。</p>
+</li>
+<li><p>本次调研主要介绍<strong>硬件 IFT 分类方法</strong>，用于调查、分类、比较不同的硬件 <strong>IFT</strong> 技术。</p>
+</li>
+</ul>
+<h1 id="Information-Flow"><a href="#Information-Flow" class="headerlink" title="Information Flow"></a>Information Flow</h1><ul>
+<li><strong>IFT</strong> 技术的工作原理 &#x3D; 用安全类别标记存储对象，并在计算数据时跟踪这些标签</li>
+</ul>
+<h4 id="Storage-Objects-and-Processes"><a href="#Storage-Objects-and-Processes" class="headerlink" title="Storage Objects and Processes"></a>Storage Objects and Processes</h4><ul>
+<li><p>存储对象是信息的容器，进程描述了对这些对象执行的计算。存储对象和进程因安全策略和抽象级别而异。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f38dbe43e0d30e814b86.png" alt="image-20230104101318676"></p>
+<p><em>附：上图为安全语言结构示例。</em></p>
+</li>
+</ul>
+<h4 id="Security-Classes-and-Flow-Relations"><a href="#Security-Classes-and-Flow-Relations" class="headerlink" title="Security Classes and Flow Relations"></a>Security Classes and Flow Relations</h4><ul>
+<li>信息流策略定义了数据对象之间允许的关系。为此，<strong>IFT</strong> 将每个对象与一个安全类别相关联，即给对象一个安全标签或安全标记。</li>
+<li>在实际中，大多数策略使用<img src="https://pic.imgdb.cn/item/63b4f38dbe43e0d30e814ba1.png" alt="image-20230104101707494" style="zoom: 50%;" /> 两元素网络，允许将保密性和完整性相关的安全属性建模为<img src="https://pic.imgdb.cn/item/63b4f40abe43e0d30e81f033.png" alt="image-20230104101833762" style="zoom:67%;" /></li>
+</ul>
+<h4 id="Noninterference"><a href="#Noninterference" class="headerlink" title="Noninterference"></a>Noninterference</h4><ul>
+<li><p>Noninterference 通过将所有系统输入、输出和状态建模为 <strong>high</strong> 或 <strong>low</strong> 来创建信息流模型，指出 <strong>high</strong> 的任何变化不应该导致 <strong>low</strong> 的输出变化。一个主要的挑战是硬件中的对象数量通常比软件中的多得多。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f409be43e0d30e81ef4d.png" alt="image-20230104102613227"></p>
+<p><em>附：上图是 explicit flow 的一个简单示例。</em></p>
+</li>
+</ul>
+<h4 id="Types-of-Information-Flow-Relations"><a href="#Types-of-Information-Flow-Relations" class="headerlink" title="Types of Information Flow Relations"></a>Types of Information Flow Relations</h4><ul>
+<li><p>虽然流关系提供了一种方式来指定与是否允许信息在对象之间传输相关的安全策略，但是它们没有严格定义确定是否存在信息流的方法。 信息可以通过许多不同的方式传播。 理解不同类型的信息流关系以及它们如何在硬件中表现出来，是精确测量所有信息流并进一步严格执行安全策略的重要的第一步。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f409be43e0d30e81ef6d.png" alt="image-20230104102742921"></p>
+<p><em>附：上图是 implicit flow 的一个简单示例。</em></p>
+</li>
+</ul>
+<h4 id="Covert-and-Side-Channels"><a href="#Covert-and-Side-Channels" class="headerlink" title="Covert and Side Channels"></a>Covert and Side Channels</h4><ul>
+<li><p><strong>Covert Channel</strong> 是使用非预期来源的信息传输。</p>
+<p>Covert Channels &#x3D; storage channel + timing channel</p>
+</li>
+<li><p><strong>Side Channel</strong> 是通过非功能(通常是物理)特征(例如，执行时间、功耗、电磁辐射和声发射)的信息泄漏。</p>
+</li>
+</ul>
+<h1 id="Operator-Precision"><a href="#Operator-Precision" class="headerlink" title="Operator Precision"></a>Operator Precision</h1><h4 id="Precision-of-IFT"><a href="#Precision-of-IFT" class="headerlink" title="Precision of IFT"></a>Precision of IFT</h4><ul>
+<li><strong>IFT</strong> 技术的精度反映了它准确测量硬件设计中所有现有信息流的能力。精确的 <strong>IFT</strong> 技术将精确地模拟硬件设计的信息流行为，而不精确的技术可能指示不存在的信息流，即假阳性（<strong>false positives</strong>），或者错过实际的信息流，即假阴性（<strong>false negatives</strong>）。</li>
+</ul>
+<h4 id="Imprecise-IFT"><a href="#Imprecise-IFT" class="headerlink" title="Imprecise IFT"></a>Imprecise IFT</h4><ul>
+<li>虽然不精确的 <strong>IFT</strong> 技术可能会导致保守的验证结果，但它们通常可以快速分析潜在的信息流安全漏洞， 这对于识别在罕见情况下发生的安全违规非常有用。</li>
+</ul>
+<h4 id="Precise-IFT"><a href="#Precise-IFT" class="headerlink" title="Precise IFT"></a>Precise IFT</h4><ul>
+<li><p>精确 <strong>IFT</strong> 技术在确定流量关系时考虑了硬件组件的功能和输入值， 该标签传播策略可以被形式化为输入及其标签的函数。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f40abe43e0d30e81efba.png" alt="image-20230104104019463"></p>
+<p><em>附：上图表示 flow relation 和 class combining operation的示例，显示了考虑和不考虑数据值的class combining operation的差异。</em></p>
+<ul>
+<li>（a）是与门；</li>
+<li>（b）是不考虑数据值的 <strong>flow relation</strong> 和 <strong>class combining operation</strong>；</li>
+<li>（c）是考虑数据值的 <strong>flow relation</strong> 和 <strong>class combining operation</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Precision-and-Complexity-Tradeoffs"><a href="#Precision-and-Complexity-Tradeoffs" class="headerlink" title="Precision and Complexity Tradeoffs"></a>Precision and Complexity Tradeoffs</h4><ul>
+<li><p>精确度和复杂性是评估硬件 <strong>IFT</strong> 技术的两个相互矛盾的因素，需要在两者之间进行权衡。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f40abe43e0d30e81f005.png" alt="image-20230104104755791"></p>
+<p><em>附：上图为与门推导简化的硬件 IFT 逻辑，展现了一种有效的方法来推导不同版本的具有可变精度和复杂度的布尔门硬件IFT逻辑，通过逐渐忽略输入，来放松精确度。</em></p>
+</li>
+</ul>
+<h1 id="Security-Properties"><a href="#Security-Properties" class="headerlink" title="Security Properties"></a>Security Properties</h1><ul>
+<li><p>信息流属性被表示为对象上的 <strong>flow relations</strong>。 属性指定存储在硬件对象中的信息能否流向其他对象。</p>
+<p><strong>IFT</strong> 属性是超属性（<strong>hyperproperties</strong>）的例子，因为它们表达了需要跨多个轨迹验证的预期行为。</p>
+</li>
+<li><p>硬件 <strong>IFT</strong> 工具使用存储安全相关信息的标签来模拟信息在硬件中的移动。标签指示对象是可信的还是不可信的，机密的还是公开的，是否包含时间变化等等。属性定义标签的初始条件，以及标签在执行过程中是否可以更改。</p>
+</li>
+</ul>
+<h4 id="Confidentiality"><a href="#Confidentiality" class="headerlink" title="Confidentiality"></a>Confidentiality</h4><ul>
+<li><p>保密性属性确保任何与敏感对象(标记为 <strong>high</strong>)相关的信息永远不会流向未分类的对象(标记为 <strong>low</strong>)。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f455be43e0d30e825002.png" alt="image-20230104110053926"></p>
+<p><em>附：表1的前四行显示了各种硬件设计(如加密内核和算术单元)的保密性属性示例。使用assume语句将敏感对象的标签设置为high，并将公共可见对象的标签设置为low。</em></p>
+</li>
+</ul>
+<h4 id="Integrity"><a href="#Integrity" class="headerlink" title="Integrity"></a>Integrity</h4><ul>
+<li>完整性是保密性的双重含义，在这里我们用 <strong>high</strong> 标签标记不可信的硬件资源，并用 <strong>low</strong> 标签标记它们不会影响关键组件。</li>
+<li><img src="https://pic.imgdb.cn/item/63b4f455be43e0d30e825002.png" alt="image-20230104110053926"><em>附：表1显示了为加密核心（crypto cores）、调试单元（debug units）、处理器（processors）和访问控制单元（ access control units)编写的四个完整性属性。</em></li>
+</ul>
+<h4 id="lsolation"><a href="#lsolation" class="headerlink" title="lsolation"></a>lsolation</h4><ul>
+<li><strong>isolation</strong> 也可以作为信息流安全属性来实施。<strong>isolation</strong> 声明在具有不同信任级别的两个组件之间不应该有信息交换，是一种双向属性。</li>
+</ul>
+<h4 id="Constant-Time"><a href="#Constant-Time" class="headerlink" title="Constant Time"></a>Constant Time</h4><ul>
+<li><p>信息流模型可用于捕获硬件设计中运行时变化产生的时序侧信道。 常数时间属性通过测量计算时间来评估是否可以检索敏感信息。 为了精确地捕获定时流，信息流模型需要区分逻辑流和定时流。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f455be43e0d30e825086.png" alt="image-20230104111258616"></p>
+<p><em>附：表2总结了几种在验证不同硬件设计中的时序侧通道时所使用的特性。</em></p>
+</li>
+</ul>
+<h4 id="Design-Integrity"><a href="#Design-Integrity" class="headerlink" title="Design Integrity"></a>Design Integrity</h4><ul>
+<li><p><strong>IFT</strong> 可用于检测某些类型的未记录的设计修改，这些修改会泄漏敏感信息或通过在设计中插入恶意信息通道来覆盖关键内存位置。</p>
+</li>
+<li><p><img src="https://pic.imgdb.cn/item/63b4f456be43e0d30e82510b.png" alt="image-20230104112205281"></p>
+<p><em>附：表3总结了 Trust-HUB中GLIFT检测信息泄露的特性。</em></p>
+</li>
+</ul>
+<h1 id="现有的IFT技术"><a href="#现有的IFT技术" class="headerlink" title="现有的IFT技术"></a>现有的IFT技术</h1><h2 id="基于状态机的IFT语言"><a href="#基于状态机的IFT语言" class="headerlink" title="基于状态机的IFT语言"></a>基于状态机的IFT语言</h2><p><strong>Caisson</strong> 和 <strong>Sapper</strong> 是增强了 <strong>IFT</strong> 能力的 <strong>HDL</strong> 语言，可以直接生成执行所需 <strong>IFT</strong> 属性的电路。这两种语言都使用状态机进行硬件设计，并可以防止产生非法流。</p>
+<p><strong>Caisson</strong> 通过静态类型检查来执行。这迫使他保守地执行复制以限制信息流。这会带来很大的硬件区域开销。但也显著地提高逻辑能力。</p>
+<p><strong>Sapper</strong> 添加了动态类型系统以减少逻辑复制的需求。它通过采用混合方法进行标签检查来改进 <strong>Caisson</strong>。它使用静态分析生成一组动态检查，这些检查被插入到硬件设计中，以实现动态跟踪。这样可以重用资源，从而降低区域开销。</p>
+<h2 id="Coq"><a href="#Coq" class="headerlink" title="Coq"></a>Coq</h2><p><strong>Coq</strong> 是一个交互式定理证明器。它允许数学断言的表达式，机械性地检查这些假设的证明，帮助寻找形式化的证明，并从构建性的证明中输出一个关于它的形式化规范的被证明有效的程序。<strong>Coq</strong> 不是一个自动定理证明器，但是包括自动定理证明工具以及各种决策流程。</p>
+<h2 id="VeriCoq-IFT"><a href="#VeriCoq-IFT" class="headerlink" title="VeriCoq-IFT"></a>VeriCoq-IFT</h2><p><strong>VeriCoq-IFT</strong> 自动将设计从 <strong>HDL</strong> 语言转换为 <strong>Coq</strong> 形式语言，无需重新设计硬件。</p>
+<h2 id="SecVerilog"><a href="#SecVerilog" class="headerlink" title="SecVerilog"></a>SecVerilog</h2><p><strong>SecVerilog</strong> 使用表达型类型系统扩展了 <strong>Verilog</strong> 语言。其使用的是静态类型检查方法。<strong>SecVerilog</strong> 用户需要显式地为代码中的每个变量添加安全标签。它使用类型系统来确保支持指定的信息流策略。</p>
+<h2 id="SecChisel"><a href="#SecChisel" class="headerlink" title="SecChisel"></a>SecChisel</h2><p><strong>ChiselFlow</strong> 是另一种类型强制 <strong>HDL</strong>，带有用于开发安全硬件架构的定时标签。它已被用于创建具有硬件级信息流控制的加密加速器，并正式验证这些实现的安全性。</p>
+<h1 id="IFT验证技术"><a href="#IFT验证技术" class="headerlink" title="IFT验证技术"></a>IFT验证技术</h1><p><strong>IFT</strong> 验证技术可以以静态或是动态的方式运行。静态 <strong>IFT</strong> 技术在设计期间通过模拟、形式化方法、仿真等来检查设计是否符合所需的安全属性。验证完成后，<strong>IFT</strong> 模型将被删除。动态硬件 <strong>IFT</strong> 是一种运行时机制，它通过跟踪逻辑来增强原始硬件设计，监视信息流行为并防止有害的信息流。通常需要付出额外的代价，例如，额外的资源使用和性能开销。</p>
+<h2 id="模拟（simulation）"><a href="#模拟（simulation）" class="headerlink" title="模拟（simulation）"></a>模拟（simulation）</h2><p>模拟是验证硬件设计行为的常用方法。硬件安全模拟在测试台输入电路设计，观察结果是否违反了安全策略。</p>
+<h2 id="形式化方法验证"><a href="#形式化方法验证" class="headerlink" title="形式化方法验证"></a>形式化方法验证</h2><p>形式化验证工具可以通过等价性检验、<strong>SAT</strong> 求解、定理证明或类型检验等方式，对信息流模型的安全属性进行形式化(或半形式化)验证。形式化方法的好处是，对于已证明的属性，硬件保证是安全的。验证结果在很大程度上依赖于指定的安全属性的质量和完整性。</p>
+<h2 id="仿真（emulation）"><a href="#仿真（emulation）" class="headerlink" title="仿真（emulation）"></a>仿真（emulation）</h2><p>随着 <strong>IC</strong> 验证平台的发展，领先的 <strong>EDA</strong> 公司也开发了工具来验证 <strong>FPGA</strong> 仿真服务器上硬件设计的信息流安全属性。硬件仿真通常比软件仿真的验证性能好 <strong>10</strong> 倍。仿真是一种很有前途的方法，它利用底层硬件的信息流测量功能来执行安全协同验证并检测利用硬件安全漏洞的软件攻击。</p>
+<h1 id="RTLIFT"><a href="#RTLIFT" class="headerlink" title="RTLIFT"></a>RTLIFT</h1><p>一种 <strong>RTLIFT</strong> 的实现步骤如下所示：设计流程跟踪库；增强跟踪逻辑的组合电路；用跟踪隐式流所需的逻辑增强条件语句。</p>
+<p><img src="https://pic.imgdb.cn/item/63b50acfbe43e0d30ea3607b.jpg"></p>
+<h2 id="流跟踪库"><a href="#流跟踪库" class="headerlink" title="流跟踪库"></a>流跟踪库</h2><p>为了通过 <strong>RTL</strong> 代码跟踪信息流，每个操作都应该进行检测，以便它可以同时对操作数的布尔值和安全标签进行操作。对于每个操作 <strong>OP</strong>，即 <strong>Z &#x3D; X OP Y</strong> 是 <strong>Verilog</strong> 中的有效语句，我们定义了一个模块 <strong>OP_IFT</strong>，它接收输入 <strong>X</strong> 和 <strong>Y</strong> 以及它们的安全标签 <strong>X_t</strong> 和 <strong>Y_t</strong>，并生成输出 <strong>Z</strong> 和它的安全标签 <strong>Z_t</strong>。这些模块被预定义，并作为一个称为“流跟踪库”的输入文件提供给 <strong>RTLIFT</strong> 软件。</p>
+<h2 id="显式流跟踪"><a href="#显式流跟踪" class="headerlink" title="显式流跟踪"></a>显式流跟踪</h2><p>流跟踪首先要对每个数据位进行扩展，即在给定的 <strong>Verilog</strong> 代码中连接寄存器，使用标签承载关于数据安全属性的信息。</p>
+<h2 id="隐式流跟踪"><a href="#隐式流跟踪" class="headerlink" title="隐式流跟踪"></a>隐式流跟踪</h2><p>仅仅跟踪显式流可能会因为忽略隐式流的存在而错误地报告条件语句中不存在流。为了跟踪这些流程，对于每个赋值操作，我们都会获得一个影响语句执行的变量列表。在这个列表中，我们生成跟踪隐式流所需的逻辑。</p>
+<p>引用文献：<br><code>Register Transfer Level Information Flow Tracking for Provably Secure Hardware Design. Armaiti Ardeshiricham, Wei Hu, Joshua Marxen and Ryan Kastner Dept. of Computer Science and Engineering, University of California, San Diego</code></p>
+<p><code>Hardware Information Flow Tracking. WEI HU, Northwestern Polytechnical University ARMAITI ARDESHIRICHAM and RYAN KASTNER, University of California, San Diego</code></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/01/04/RTL-security-IFT/">http://example.com/2023/01/04/RTL-security-IFT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/IFT/">IFT</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/63b51922be43e0d30eb84218.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/05/BUAA-CO-P6/"><img class="prev-cover" src="https://pic.imgdb.cn/item/63b6bc84be43e0d30e3f8224.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机组成实验 P6 回顾</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/02/BUAA-CO-P5/"><img class="next-cover" src="https://pic.imgdb.cn/item/63b2f5efbe43e0d30e83ac77.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机组成实验 P5 回顾</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Information-Flow"><span class="toc-number">2.</span> <span class="toc-text">Information Flow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Storage-Objects-and-Processes"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">Storage Objects and Processes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Security-Classes-and-Flow-Relations"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">Security Classes and Flow Relations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Noninterference"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">Noninterference</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Types-of-Information-Flow-Relations"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">Types of Information Flow Relations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Covert-and-Side-Channels"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">Covert and Side Channels</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Operator-Precision"><span class="toc-number">3.</span> <span class="toc-text">Operator Precision</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Precision-of-IFT"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">Precision of IFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Imprecise-IFT"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">Imprecise IFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precise-IFT"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">Precise IFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precision-and-Complexity-Tradeoffs"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">Precision and Complexity Tradeoffs</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Security-Properties"><span class="toc-number">4.</span> <span class="toc-text">Security Properties</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Confidentiality"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">Confidentiality</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Integrity"><span class="toc-number">4.0.0.2.</span> <span class="toc-text">Integrity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lsolation"><span class="toc-number">4.0.0.3.</span> <span class="toc-text">lsolation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Constant-Time"><span class="toc-number">4.0.0.4.</span> <span class="toc-text">Constant Time</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Design-Integrity"><span class="toc-number">4.0.0.5.</span> <span class="toc-text">Design Integrity</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%9A%84IFT%E6%8A%80%E6%9C%AF"><span class="toc-number">5.</span> <span class="toc-text">现有的IFT技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E7%9A%84IFT%E8%AF%AD%E8%A8%80"><span class="toc-number">5.1.</span> <span class="toc-text">基于状态机的IFT语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Coq"><span class="toc-number">5.2.</span> <span class="toc-text">Coq</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VeriCoq-IFT"><span class="toc-number">5.3.</span> <span class="toc-text">VeriCoq-IFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SecVerilog"><span class="toc-number">5.4.</span> <span class="toc-text">SecVerilog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SecChisel"><span class="toc-number">5.5.</span> <span class="toc-text">SecChisel</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IFT%E9%AA%8C%E8%AF%81%E6%8A%80%E6%9C%AF"><span class="toc-number">6.</span> <span class="toc-text">IFT验证技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%EF%BC%88simulation%EF%BC%89"><span class="toc-number">6.1.</span> <span class="toc-text">模拟（simulation）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95%E9%AA%8C%E8%AF%81"><span class="toc-number">6.2.</span> <span class="toc-text">形式化方法验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%EF%BC%88emulation%EF%BC%89"><span class="toc-number">6.3.</span> <span class="toc-text">仿真（emulation）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RTLIFT"><span class="toc-number">7.</span> <span class="toc-text">RTLIFT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E8%B7%9F%E8%B8%AA%E5%BA%93"><span class="toc-number">7.1.</span> <span class="toc-text">流跟踪库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%B5%81%E8%B7%9F%E8%B8%AA"><span class="toc-number">7.2.</span> <span class="toc-text">显式流跟踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E6%B5%81%E8%B7%9F%E8%B8%AA"><span class="toc-number">7.3.</span> <span class="toc-text">隐式流跟踪</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
