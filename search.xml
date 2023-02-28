@@ -127,9 +127,9 @@
             
             <tag> CO </tag>
             
-            <tag> 单周期CPU </tag>
-            
             <tag> verilog </tag>
+            
+            <tag> 单周期CPU </tag>
             
         </tags>
       
