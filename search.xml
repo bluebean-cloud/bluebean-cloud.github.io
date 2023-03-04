@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> -面向对象课程 </category>
+          <category> 面向对象课程 </category>
           
       </categories>
       
@@ -244,9 +244,9 @@
             
             <tag> CO </tag>
             
-            <tag> verilog </tag>
-            
             <tag> logisim </tag>
+            
+            <tag> verilog </tag>
             
             <tag> mips </tag>
             
