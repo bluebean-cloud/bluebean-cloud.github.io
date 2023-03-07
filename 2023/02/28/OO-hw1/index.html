@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imgdb.cn/item/63fdbc21f144a01007d21b1f.png">
 <meta property="article:published_time" content="2023-02-28T07:34:04.000Z">
-<meta property="article:modified_time" content="2023-03-03T18:16:40.075Z">
+<meta property="article:modified_time" content="2023-03-07T07:13:32.323Z">
 <meta property="article:author" content="Bluebean">
 <meta property="article:tag" content="OO">
 <meta property="article:tag" content="Java">
@@ -55,7 +55,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-04 02:16:40'
+  postUpdate: '2023-03-07 15:13:32'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -177,8 +177,8 @@
 <p>对于括号，整个解析过程是边解析边化简的。具体而言，在读取到括号时我会将括号内部视作一个表达式进行解析，返回经过化简后的 <strong>ArrayList&lt;Term&gt;<strong>（</strong>ArrayList&lt;Term&gt;</strong> 与表达式在逻辑上是等价的）。</p>
 <p>由于 <strong>ArrayList&lt;Term&gt;</strong> 与表达式在逻辑上是等价的，故 <strong>parseExpr()</strong> 与 <strong>parseTerm()</strong> 的返回值都是 **ArrayList&lt;Term&gt;**。后者之所以返回数组是为了支持括号的解析。</p>
 <h3 id="对括号的处理"><a href="#对括号的处理" class="headerlink" title="对括号的处理"></a>对括号的处理</h3><p>在预处理时，括号前一定是 “1*”，而分析乘法的过程是在 <strong>praseTerm()</strong> 中进行的，所以在遇到括号时一定处于调用 <strong>praseTerm()</strong> 的过程中。</p>
-<p>遇到括号时，在 <strong>praseTerm()</strong> 中递归调用 **praseExpr()**。在 <strong>praseExpr()</strong> 中将括号内的表达式分析、化简完毕再回溯到 **praseTerm()**（此时 <strong>parseTerm()</strong> 就会返回多个 <strong>Term</strong>）。</p>
-<p>举例而言：对于 <code>1+(x**2-1)*3</code>，经过预处理后：<code>1+1*(x**2-1)*3</code>，在读取到 “**(**” 时处于 <strong>parseTerm（）</strong> 的调用中。经调用 <strong>parseExpr（）</strong> 后得到一个 <strong>ArrayList&lt;Term&gt;<strong>。之后接着读取处理后面的 <code>*3</code>，最后返回的 <strong>Term</strong> 数组中包含 <strong>3*x**2</strong>，</strong>-3</strong>。</p>
+<p>遇到括号时，在 <strong>praseTerm()</strong> 中递归调用 <strong>praseExpr()</strong>。在 <strong>praseExpr()</strong> 中将括号内的表达式分析、化简完毕再回溯到 <strong>praseTerm()</strong>（此时 <strong>parseTerm()</strong> 就会返回多个 <strong>Term</strong>）。</p>
+<p>举例而言：对于 <code>1+(x**2-1)*3</code>，经过预处理后：<code>1+1*(x**2-1)*3</code>，在读取到 “<strong>(</strong>” 时处于 <strong>parseTerm()</strong> 的调用中。经调用 <strong>parseExpr()</strong> 后得到一个 <strong>ArrayList&lt;Term&gt;<strong>。之后接着读取处理后面的 <code>*3</code>，最后返回的 <strong>Term</strong> 数组中包含 <strong>3*x**2</strong>，</strong>-3</strong>。</p>
 <h3 id="对乘方的处理"><a href="#对乘方的处理" class="headerlink" title="对乘方的处理"></a>对乘方的处理</h3><p>“^” 可能出现在 “xyz)” 的后面。于是在 <strong>praseVar()</strong> 中和 <strong>praseTerm()</strong> 中相应的位置直接进行分析、展开（暴力循环即可）。我使用 <strong>Var</strong> 中的一个属性 <strong>index</strong> 来存储原子项（<strong>xyz</strong> 与数字，不过数字的乘方采取直接计算的方法）的乘方。</p>
 <h3 id="另注"><a href="#另注" class="headerlink" title="另注"></a>另注</h3><p>所有的正负号最后都会归集到 <strong>praseVar()</strong> 中进行分析（ “-(” 的情况变成了 “-1*(” ）。</p>
 <p>由于 <strong>exprSimplify</strong> 的化简需要返回一个 <strong>ArrayList</strong> 以方便进行进一步计算，我将这个函数放到了工具类当中。</p>
