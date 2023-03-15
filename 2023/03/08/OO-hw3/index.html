@@ -1,0 +1,933 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>面向对象课程 HW3 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面向对象课程第三次作业总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象课程 HW3">
+<meta property="og:url" content="http://example.com/2023/03/08/OO-hw3/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="面向对象课程第三次作业总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg">
+<meta property="article:published_time" content="2023-03-08T03:56:28.000Z">
+<meta property="article:modified_time" content="2023-03-15T17:47:52.415Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="OO">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="计算器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/03/08/OO-hw3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象课程 HW3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-16 01:47:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象课程 HW3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-03-08T03:56:28.000Z" title="发表于 2023-03-08 11:56:28">2023-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%BE%E7%A8%8B/">面向对象课程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/03/08/OO-hw3/" data-flag-title="面向对象课程 HW3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是面向对象课程的第三次作业总结博客。在第二次作业上进行了一定的迭代开发。工作量相比第二次作业而言并不大。</p>
+<p>相较于第二次作业，本次作业实现的功能有：实现求导算子。</p>
+<p>因为只需要实现一个功能，从任务量和难度来讲都是三次作业中最简单的一次。</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>经过迭代后第三次作业的类图如下所示：</p>
+<p><img src="https://pic.imgdb.cn/item/64113ff7ebf10e5d538ed335.jpg" alt="类图"></p>
+<p>本次迭代中涉及的工作有：</p>
+<ul>
+<li><strong>Expr</strong>、<strong>Term</strong>、<strong>Var</strong> 新增了求导方法（<strong>Expr</strong> 的求导方法处于 <strong>Tool</strong> 类中）。</li>
+<li><strong>Parser</strong> 新增了求导算子语法分析方法。</li>
+<li>对自定义函数的构造方法进行了一定的调整。</li>
+<li>对预处理函数进行了一些调整</li>
+</ul>
+<h2 id="对预处理的调整"><a href="#对预处理的调整" class="headerlink" title="对预处理的调整"></a>对预处理的调整</h2><p>主要调整是将 <strong>dx</strong> 替换为了 <strong>1*dx</strong>，这样可以保证解析到求导算子时处在 <strong>Term</strong> 的解析过程中。</p>
+<h2 id="求导实现思路"><a href="#求导实现思路" class="headerlink" title="求导实现思路"></a>求导实现思路</h2><p>在遇到求导算子 <strong>dx/y/z</strong> 时，对其管辖的表达式进行语法分析。分析结束后对得到的表达式调用表达式求导函数得到求导后的表达式，后续处理与括号解析相同。</p>
+<p>对于出现在自定义函数中的求导算子，我的处理是对自定义函数的表达式调用表达式语法分析，对表达式进行展开、化简操作，再进行形参替换。</p>
+<h3 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a>Expr</h3><p>对于 <strong>Expr</strong> 就是对其中每个 <strong>Term</strong> 都进行求导。采取循环即可，在循环过程中对每一项都进行求导。此3方法位于工具类 <strong>Tool</strong> 中。</p>
+<h3 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h3><p>对于 <strong>Term</strong> 的求导主要考虑乘法法则。考虑到 <strong>(f(x)*g(x)*h(x))’=f(x)’*(g(x)*h(x))+f(x)*(g(x)*h(x))’=…</strong>，采用递归的方法解析。伪代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Term&gt; termDerivative</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">terms</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">this</span>.vars.size == <span class="number">1</span>                  <span class="comment">// 当只剩下一项的时候</span></span><br><span class="line">        add vars[<span class="number">0</span>].derivative to terms     <span class="comment">// 返回原子项的求导结果</span></span><br><span class="line">        <span class="keyword">return</span> terms</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        add <span class="title function_">mul</span><span class="params">(<span class="built_in">this</span>.vars[<span class="number">0</span>].derivative, <span class="built_in">this</span>.vars[<span class="number">1</span>,])</span> to terms <span class="comment">// 前导后不导</span></span><br><span class="line">        add <span class="title function_">mul</span><span class="params">(<span class="built_in">this</span>.vars[<span class="number">0</span>], <span class="built_in">this</span>.vars[<span class="number">1</span>,].derivative)</span> to terms <span class="comment">// 前不导后导</span></span><br><span class="line">        <span class="keyword">return</span> terms </span><br></pre></td></tr></table></figure>
+<h3 id="Var"><a href="#Var" class="headerlink" title="Var"></a>Var</h3><p>对于 <strong>Var</strong> 的求导，分为三种情况：</p>
+<ol>
+<li>常数求导返回零</li>
+<li><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="2.442ex" height="1.553ex" role="img" focusable="false" viewBox="0 -675.5 1079.3 686.5"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(605,363) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg></mjx-container> 返回 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="7.981ex" height="1.912ex" role="img" focusable="false" viewBox="0 -833.9 3527.4 844.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="msup" transform="translate(1544.4,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="TeXAtom" transform="translate(605,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(600,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1378,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></g></svg></mjx-container></li>
+<li>三角函数返回三角函数求导后的值。</li>
+</ol>
+<p>其中对三角函数的求导举例：</p>
+<script type="math/tex; mode=display">
+(sin^n(Expr))'=n*sin^{n-1}(Expr)*cos(Expr)*(Expr)'</script><h2 id="类复杂度分析"><a href="#类复杂度分析" class="headerlink" title="类复杂度分析"></a>类复杂度分析</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>CgoC</th>
+<th>ev</th>
+<th>iv</th>
+<th>v</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expr.equals(Expr)</td>
+<td>16</td>
+<td>5</td>
+<td>5</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Expr.Expr()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Expr.Expr(ArrayList)</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Expr.getTerms()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Expr.toString()</td>
+<td>6</td>
+<td>3</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Function.call(String)</td>
+<td>9</td>
+<td>1</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Function.Function(String, ArrayList)</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Function.getState()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Function.toString()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Lexer.getFunction()</td>
+<td>5</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Lexer.getNumber()</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Lexer.Lexer(String)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Lexer.next()</td>
+<td>9</td>
+<td>2</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Lexer.peek()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MainClass.main(String[])</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Parser.cket(ArrayList)</td>
+<td>4</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Parser.parseDerivation(ArrayList)</td>
+<td>4</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Parser.parseExpr()</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Parser.parseFunction(ArrayList, String)</td>
+<td>7</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Parser.Parser(Lexer, ArrayList)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Parser.parseTerm()</td>
+<td>14</td>
+<td>1</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Parser.parseVar()</td>
+<td>23</td>
+<td>7</td>
+<td>11</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Term.add(Term)</td>
+<td>9</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Term.addVar(Var)</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Term.addVars(Term)</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Term.copy()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.equals(Term)</td>
+<td>17</td>
+<td>6</td>
+<td>5</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Term.getConstant()</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Term.getSymbol()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.setSymbol()</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Term.setSymbol(int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.similar(Term)</td>
+<td>39</td>
+<td>13</td>
+<td>15</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Term.simplify()</td>
+<td>23</td>
+<td>5</td>
+<td>13</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Term.Term()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.Term(int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.Term(Var)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Term.termDerivative(Character)</td>
+<td>6</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Term.toString()</td>
+<td>6</td>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Tool.afterTreat(String)</td>
+<td>3</td>
+<td>1</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Tool.exprDerivative(ArrayList, Character)</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tool.exprSimplify(ArrayList)</td>
+<td>8</td>
+<td>2</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Tool.mul(ArrayList, ArrayList)</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tool.mul(ArrayList, Term)</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Tool.mul(Term, Term)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Tool.preTreat(String)</td>
+<td>2</td>
+<td>1</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Tool.removeSpace(String)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.addAbs(Var)</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Var.copy()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.equals(Var)</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Var.getCharacter()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.getExpr()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.getIndex()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.getNum()</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Var.getSymbol()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.getType()</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.setSymbol(int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.simplify()</td>
+<td>8</td>
+<td>4</td>
+<td>5</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Var.subAbs(Var)</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Var.toString()</td>
+<td>11</td>
+<td>6</td>
+<td>7</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Var.Var(int)</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Var.Var(int, BigInteger, Character, int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.Var(int, BigInteger, Character, int, int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.Var(int, BigInteger, Character, int, int, ArrayList)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.Var(int, BigInteger, int, int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.Var(int, Character, int, int)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.Var(int, int, int, ArrayList)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Var.varDerivative(Character)</td>
+<td>15</td>
+<td>3</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>276</td>
+<td>131</td>
+<td>201</td>
+<td>249</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>4.119402985</td>
+<td>1.955223881</td>
+<td>3</td>
+<td>3.71641791</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://pic.imgdb.cn/item/6411fa49ebf10e5d5330ecbe.png" alt="复杂度分析"></p>
+<p>本次迭代后复杂度并没有额外的增加。整体上基本与第二次作业相同。</p>
+<h2 id="bug-分析"><a href="#bug-分析" class="headerlink" title="bug 分析"></a>bug 分析</h2><p>本次作业并没有发现 <strong>bug</strong>。</p>
+<h2 id="hack-策略"><a href="#hack-策略" class="headerlink" title="hack 策略"></a>hack 策略</h2><p>整体上 <strong>hack</strong> 以跑评测机为主，手动构造数据为辅。</p>
+<p>值得一提的是在互测过程中成功刀到了 <strong>TLE</strong> 与 <strong>MLE</strong>。出刀的过程中包含了各种卡着代价上限的微调…结果是成功爆了一个人的时间与另一个人的堆，给我留下了珍贵的回忆。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>拜整体还算是优良的架构所赐，第三次作业的难度可谓是三次作业中最简单的。经验是在编程过程中，优良的架构设计是很重要的。在写出屎山代码时要勇于重构，不要尝试在屎山上添砖加瓦。</p>
+<p>因为没有参加 <strong>OOpre</strong>，所以在写第一次作业的过程中遇到了莫大的困难，当时的心态也受到了莫大的影响。很希望课程组以后会改进这一点，要么不要取消寒假的 <strong>OOpre</strong>，要么把 <strong>OOpre</strong> 课程变成大二上的必修课。</p>
+<p>另外是互测刀的很爽（逃），但是个人感觉代价的设定有点太严苛了，过于严苛的代价设定让本来是比较合理的 <strong>hack</strong> 都无法通过合法性检验，比较影响刀人体验。</p>
+<p>第一单元的学习还是很有遗憾的，比如第一次作业强测直接寄的经历呜呜呜。</p>
+<p>特别感谢 <strong>Toby</strong> 和 <strong>sheep</strong> 对我学习的帮助。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/03/08/OO-hw3/">http://example.com/2023/03/08/OO-hw3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO/">OO</a><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/">计算器</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/04/OO-hw2/"><img class="next-cover" src="https://pic.imgdb.cn/item/64023f62f144a010077073fe.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面向对象课程 HW2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/02/28/OO-hw1/" title="面向对象课程 HW1"><img class="cover" src="https://pic.imgdb.cn/item/63fdbc21f144a01007d21b1f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-28</div><div class="title">面向对象课程 HW1</div></div></a></div><div><a href="/2023/03/04/OO-hw2/" title="面向对象课程 HW2"><img class="cover" src="https://pic.imgdb.cn/item/64023f62f144a010077073fe.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="title">面向对象课程 HW2</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description">青豆的奇妙冒险</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%A2%84%E5%A4%84%E7%90%86%E7%9A%84%E8%B0%83%E6%95%B4"><span class="toc-number">3.</span> <span class="toc-text">对预处理的调整</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%82%E5%AF%BC%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-number">4.</span> <span class="toc-text">求导实现思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Expr"><span class="toc-number">4.1.</span> <span class="toc-text">Expr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Term"><span class="toc-number">4.2.</span> <span class="toc-text">Term</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Var"><span class="toc-number">4.3.</span> <span class="toc-text">Var</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">类复杂度分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bug-%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">bug 分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hack-%E7%AD%96%E7%95%A5"><span class="toc-number">7.</span> <span class="toc-text">hack 策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
