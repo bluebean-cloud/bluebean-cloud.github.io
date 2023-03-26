@@ -1,0 +1,712 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>面向对象课程 HW5 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面向对象课程第五次作业总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象课程 HW5">
+<meta property="og:url" content="http://example.com/2023/03/25/OO-hw5/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="面向对象课程第五次作业总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/642003fda682492fcc97ca4b.jpg">
+<meta property="article:published_time" content="2023-03-25T04:55:18.000Z">
+<meta property="article:modified_time" content="2023-03-26T12:14:11.508Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="OO">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="电梯">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/642003fda682492fcc97ca4b.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/03/25/OO-hw5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象课程 HW5',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-26 20:14:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/642003fda682492fcc97ca4b.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象课程 HW5</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-03-25T04:55:18.000Z" title="发表于 2023-03-25 12:55:18">2023-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%BE%E7%A8%8B/">面向对象课程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/03/25/OO-hw5/" data-flag-title="面向对象课程 HW5"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>电梯月来咯~</p>
+<p>虽然本单元理论上应该写多线程，但是我却采用了状态机逻辑…虽然这可能与训练目标不太一样，不过是正确的就好辣~</p>
+<h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><p>经过仔细地评估、设计后，我的代码中除了 <code>MainClass</code> 外只包含四个类。类图如下所示：</p>
+<p><img src="https://pic.imgdb.cn/item/64200f56a682492fccac5c58.jpg" alt="类图"></p>
+<ul>
+<li><strong>Request</strong>：请求</li>
+<li><strong>Building</strong>：楼</li>
+<li><strong>Elevator</strong>：电梯</li>
+<li><strong>Passenger</strong>：乘客</li>
+</ul>
+<h2 id="对各类的分析与评估"><a href="#对各类的分析与评估" class="headerlink" title="对各类的分析与评估"></a>对各类的分析与评估</h2><h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><p>本类占据一个线程，负责拉取乘客的请求。</p>
+<p>评价：没啥好说的。</p>
+<h3 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h3><p>本类占据一个线程，负责六部电梯的运行以及分配乘客请求给电梯。</p>
+<p>方法介绍：</p>
+<h4 id="step"><a href="#step" class="headerlink" title="step"></a>step</h4><p>使状态机前进一个周期。</p>
+<h4 id="isEnd"><a href="#isEnd" class="headerlink" title="isEnd"></a>isEnd</h4><p>判断状态机整体是否运行完毕。</p>
+<h4 id="elevatorEnd"><a href="#elevatorEnd" class="headerlink" title="elevatorEnd"></a>elevatorEnd</h4><p>判断各个电梯是否运行完毕。</p>
+<h4 id="pasAlloc"><a href="#pasAlloc" class="headerlink" title="pasAlloc"></a>pasAlloc</h4><p>尝试将乘客分配给电梯，分配失败返回 <strong>false</strong>。</p>
+<h4 id="findNearEmpty"><a href="#findNearEmpty" class="headerlink" title="findNearEmpty"></a>findNearEmpty</h4><p>寻找与目标楼层最近的空电梯。</p>
+<h4 id="Building评价"><a href="#Building评价" class="headerlink" title="Building评价"></a>Building评价</h4><p>本类是状态机的核心类。有关状态机的逻辑都包含在本类之中。</p>
+<h3 id="Elevator"><a href="#Elevator" class="headerlink" title="Elevator"></a>Elevator</h3><p>电梯类。负责电梯的具体行为。</p>
+<p>对于电梯，我具有两个乘客队列：<strong>tasks</strong> 队列中的乘客未入梯但是已被分配给这个电梯；<strong>passengers</strong> 队列中的乘客则已经进入了这个电梯。</p>
+<p>在判断能否接客时，采用一个桶子（即属性 <strong>cnt</strong>）记载电梯的占用情况。</p>
+<p>方法介绍：</p>
+<h4 id="tryOpen"><a href="#tryOpen" class="headerlink" title="tryOpen"></a>tryOpen</h4><p>尝试开门操作。</p>
+<h4 id="operator"><a href="#operator" class="headerlink" title="operator"></a>operator</h4><p>尝试进行关门、开门操作。</p>
+<h4 id="move"><a href="#move" class="headerlink" title="move"></a>move</h4><p>尝试进行移动操作。</p>
+<h4 id="ifCarry"><a href="#ifCarry" class="headerlink" title="ifCarry"></a>ifCarry</h4><p>判断电梯是否可以接受该乘客。（主要从容量方面考虑该乘客是否能买到“票”）</p>
+<h4 id="ifPassingly"><a href="#ifPassingly" class="headerlink" title="ifPassingly"></a>ifPassingly</h4><p>判断电梯是否可以捎带该乘客。</p>
+<h4 id="Elevator评价"><a href="#Elevator评价" class="headerlink" title="Elevator评价"></a>Elevator评价</h4><p>本类是电梯类，承载了电梯的所有行为逻辑。</p>
+<h3 id="Passenger"><a href="#Passenger" class="headerlink" title="Passenger"></a>Passenger</h3><p>本类是乘客类，记录了一个乘客所包含的所有信息。</p>
+<p>对于乘客的 <strong>state</strong>（状态）定义如下：</p>
+<ul>
+<li><strong>0</strong>：乘客尚未进入电梯</li>
+<li><strong>1</strong>：乘客已经进入电梯</li>
+</ul>
+<p>没啥好评价的，普普通通的乘客类。</p>
+<h2 id="运行逻辑"><a href="#运行逻辑" class="headerlink" title="运行逻辑"></a>运行逻辑</h2><p>电梯的忙碌状态定义：</p>
+<ul>
+<li><strong>free</strong>：电梯中没有乘客且任务队列为空。</li>
+<li><strong>empty</strong>：电梯中没有乘客但任务队列非空。</li>
+</ul>
+<p>电梯的运行状态（<strong>action</strong>）定义：</p>
+<ul>
+<li><strong>true</strong>：本轮时钟周期可以进行行动。</li>
+<li><strong>false</strong>：本轮时钟周期已经行动过了，不能进行行动。</li>
+</ul>
+<p><strong>Building</strong> 在初始化时会创建六个电梯。</p>
+<p>一个时钟周期设置为 <strong>400ms</strong>。</p>
+<p>每轮时钟周期首先尝试给电梯分配任务。分配完任务后电梯的运行逻辑如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Elevator elevator: elevators) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!elevator.isFree() || elevator.isOpen()) &#123;</span><br><span class="line">        elevator.init(); <span class="comment">// 将 action 置为 true</span></span><br><span class="line">        elevator.operator();</span><br><span class="line">        elevator.move();</span><br><span class="line">        elevator.tryOpen(); <span class="comment">// 到了一层后可以尝试开门</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>始终步进直至达到停止条件。</p>
+<h2 id="乘客分配策略"><a href="#乘客分配策略" class="headerlink" title="乘客分配策略"></a>乘客分配策略</h2><p>首先尝试将乘客分配给电梯捎带。</p>
+<p>这里的捎带分为两种情况：</p>
+<ul>
+<li>对于 <strong>empty</strong> 的电梯：待分配的乘客与电梯任务队列中的乘客的请求方向一致，且电梯容量足够，则判断为可捎带。</li>
+<li>对于非 <strong>empty</strong> 的电梯：待分配的乘客与电梯当前运行方向相同，且电梯容量足够，则判断为可捎带。</li>
+</ul>
+<p>若无法捎带，则分配给最近的<strong>空电梯</strong>。这里的空电梯指电梯处于 <strong>free</strong> 状态，即乘客队列与任务队列均为空。</p>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>CogC</th>
+<th>ev(G)</th>
+<th>iv(G)</th>
+<th>v(G)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Building.Building(int, ArrayList\<Passenger>, Request)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Building.elevatorEnd()</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Building.findNearEmpty(int)</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Building.isEnd()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Building.pasAlloc(Passenger)</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Building.run()</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Building.step()</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>6.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Elevator.carry(Passenger)</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Elevator.checkBegin()</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Elevator.checkTop()</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.close()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.closeDoor()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.Elevator(int, int, int, int, int)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Elevator.findBottom()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.findTop()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.getFloor()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.ifCarry(Passenger)</td>
+<td>12.0</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Elevator.ifOut()</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.ifOut(Passenger)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Elevator.ifPassingly(Passenger)</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Elevator.ifTake()</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.ifTake(Passenger)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.init()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.isEmpty()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.isEnd()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Elevator.isFree()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Elevator.isOpen()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.move()</td>
+<td>13.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>7.0</td>
+</tr>
+<tr>
+<td>Elevator.open()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.operator()</td>
+<td>7.0</td>
+<td>2.0</td>
+<td>5.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Elevator.takeOn()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.takeOn(Passenger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.takeOut()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Elevator.takeOut(Passenger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Elevator.tryOpen()</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>MainClass.main(String[])</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.getDirection()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.getFinish()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.getId()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.getStart()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.isTake()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.Passenger(int, int, int)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Passenger.takeOn()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Passenger.toString()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Request.getRequest()</td>
+<td>4.0</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Request.isEnd()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Request.Request(ArrayList\<Passenger>)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Request.run()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>111.0</td>
+<td>73.0</td>
+<td>95.0</td>
+<td>122.0</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>2.3125</td>
+<td>1.5208333333333333</td>
+<td>1.9791666666666667</td>
+<td>2.5416666666666665</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>本次作业类之间关系比较简单，方法复杂度经过精心设计后也普遍不高。总码量不到五百行，较为轻松地通过了本次作业。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/03/25/OO-hw5/">http://example.com/2023/03/25/OO-hw5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO/">OO</a><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E7%94%B5%E6%A2%AF/">电梯</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/642003fda682492fcc97ca4b.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/08/OO-hw3/"><img class="next-cover" src="https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面向对象课程 HW3</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/04/OO-hw2/" title="面向对象课程 HW2"><img class="cover" src="https://pic.imgdb.cn/item/64023f62f144a010077073fe.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="title">面向对象课程 HW2</div></div></a></div><div><a href="/2023/02/28/OO-hw1/" title="面向对象课程 HW1"><img class="cover" src="https://pic.imgdb.cn/item/63fdbc21f144a01007d21b1f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-28</div><div class="title">面向对象课程 HW1</div></div></a></div><div><a href="/2023/03/08/OO-hw3/" title="面向对象课程 HW3"><img class="cover" src="https://pic.imgdb.cn/item/64120031ebf10e5d533aa188.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-08</div><div class="title">面向对象课程 HW3</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description">青豆的奇妙冒险</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">整体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%90%84%E7%B1%BB%E7%9A%84%E5%88%86%E6%9E%90%E4%B8%8E%E8%AF%84%E4%BC%B0"><span class="toc-number">3.</span> <span class="toc-text">对各类的分析与评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Request"><span class="toc-number">3.1.</span> <span class="toc-text">Request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Building"><span class="toc-number">3.2.</span> <span class="toc-text">Building</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#step"><span class="toc-number">3.2.1.</span> <span class="toc-text">step</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#isEnd"><span class="toc-number">3.2.2.</span> <span class="toc-text">isEnd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#elevatorEnd"><span class="toc-number">3.2.3.</span> <span class="toc-text">elevatorEnd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pasAlloc"><span class="toc-number">3.2.4.</span> <span class="toc-text">pasAlloc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findNearEmpty"><span class="toc-number">3.2.5.</span> <span class="toc-text">findNearEmpty</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Building%E8%AF%84%E4%BB%B7"><span class="toc-number">3.2.6.</span> <span class="toc-text">Building评价</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elevator"><span class="toc-number">3.3.</span> <span class="toc-text">Elevator</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tryOpen"><span class="toc-number">3.3.1.</span> <span class="toc-text">tryOpen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#operator"><span class="toc-number">3.3.2.</span> <span class="toc-text">operator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#move"><span class="toc-number">3.3.3.</span> <span class="toc-text">move</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ifCarry"><span class="toc-number">3.3.4.</span> <span class="toc-text">ifCarry</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ifPassingly"><span class="toc-number">3.3.5.</span> <span class="toc-text">ifPassingly</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Elevator%E8%AF%84%E4%BB%B7"><span class="toc-number">3.3.6.</span> <span class="toc-text">Elevator评价</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Passenger"><span class="toc-number">3.4.</span> <span class="toc-text">Passenger</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91"><span class="toc-number">4.</span> <span class="toc-text">运行逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%98%E5%AE%A2%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="toc-number">5.</span> <span class="toc-text">乘客分配策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">复杂度分析</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
