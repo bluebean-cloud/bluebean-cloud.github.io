@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/646c583ce03e90d874f13aa9.jpg">
 <meta property="article:published_time" content="2023-05-20T14:13:03.000Z">
-<meta property="article:modified_time" content="2023-05-30T06:51:24.172Z">
+<meta property="article:modified_time" content="2023-06-07T15:00:25.420Z">
 <meta property="article:author" content="Bluebean">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-05-30 14:51:24'
+  postUpdate: '2023-06-07 23:00:25'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -204,7 +204,8 @@
 </ul>
 <p>对于每一条历史指令，存入 <code>.history</code> 时采取 <code>&lt;strlen&gt;&lt;string&gt;&lt;strlen&gt;</code> 的格式，从而能够实现双向的遍历。</p>
 <h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>我选择做相对路径部分，因为实现了相对路径之后 <code>shell</code> 使用起来将更加方便。</p>
-<p>想要支持工作目录，需要在每个进程中维护各自的工作目录。需要在 <code>include/env.c</code> 中添加相应的变量。</p>
+<p>想要支持工作目录，需要在每个进程中维护各自的工作目录。需要在 <code>include/env.h</code> 中添加相应的变量。</p>
+<p>注意，在进程控制块中添加对应变量后需要维护进程块初始化、<code>fork()</code> 时相应变量的变化。</p>
 <p>此外需要至少实现两个系统调用。一个用于实现用户进程获取当前的工作目录，一个用于用户进程改变自己当前的工作目录。</p>
 <p>添加系统调用的流程如下：</p>
 <ul>
