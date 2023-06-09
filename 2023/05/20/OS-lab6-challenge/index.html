@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/646c583ce03e90d874f13aa9.jpg">
 <meta property="article:published_time" content="2023-05-20T14:13:03.000Z">
-<meta property="article:modified_time" content="2023-06-07T15:00:25.420Z">
+<meta property="article:modified_time" content="2023-06-09T09:06:08.175Z">
 <meta property="article:author" content="Bluebean">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-06-07 23:00:25'
+  postUpdate: '2023-06-09 17:06:08'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -187,10 +187,11 @@
 <h3 id="程序名称中-b-的省略"><a href="#程序名称中-b-的省略" class="headerlink" title="程序名称中 .b 的省略"></a>程序名称中 .b 的省略</h3><p>这部分需要修改 <code>spawn.c</code> 中的内容。</p>
 <p>具体而言，在尝试打开文件失败时，首先将 <code>.b</code> 拼接到当前文件名之前（当前文件名末尾不是 <code>.b</code>），然后再次运行 <code>spawn()</code> 函数即可。</p>
 <h3 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h3><p>实现这个功能需要遍历目录。打印树需要递归实现。</p>
+<p>关于如何遍历目录，可以参考 <code>ls.c</code> 文件。</p>
 <p>伪代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">print_tree</span><span class="params">(<span class="type">char</span>* dir_path, <span class="type">const</span> <span class="type">char</span>* indent)</span> &#123;</span><br><span class="line"></span><br><span class="line">    FILE file = getfile(dir_path);</span><br><span class="line">    <span class="keyword">if</span> (file is dir) &#123;</span><br><span class="line">        <span class="keyword">for</span> (sons in file) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sons is dir) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(indent + <span class="string">&quot;|-&quot;</span> + file.name);</span><br><span class="line">                print_tree(dir_path + file.name, indent + <span class="string">&quot;|    &quot;</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sons is file) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(indent + <span class="string">&quot;|-&quot;</span> + file.name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="touch-和-mkdir"><a href="#touch-和-mkdir" class="headerlink" title="touch 和 mkdir"></a>touch 和 mkdir</h3><p>完成创建文件和文件夹的功能，具体而言是在 <code>fs/serv.c</code> 下修改 <code>serve_open()</code> 函数。在 <code>fs/fs.c</code> 里已经为我们实现了 <code>file_create</code> 函数，我们主要需要做的是在 <code>fs/serv.c</code> 中实现这一接口。</p>
-<p>完成接口之后只需要以 <code>O_CREAT</code> 模式调用 <code>open()</code> 函数即可完成创建文件。（当然也可以支持类似于 <code>O_CREAT | O_WRONLY</code>，完成创建并以可写模式打开文件。</p>
+<p>完成接口之后只需要以 <code>O_CREAT</code> 模式调用 <code>open()</code> 函数即可完成创建文件。（当然也可以支持类似于 <code>O_CREAT | O_WRONLY</code>，完成创建并以可写模式打开文件）</p>
 <p>创建文件夹的时候将文件的属性更改为 <code>FTYPE_DIR</code> 即可。</p>
 <h3 id="修改-gt"><a href="#修改-gt" class="headerlink" title="修改 &gt;"></a>修改 &gt;</h3><p>我们需要修改对 <code>&gt;</code> 的处理以保证在重定向的目标文件不存在时能够自动创建该文件并写入。在实现了 <code>touch</code> 和 <code>mkdir</code> 之后这个功能是很容易实现的。</p>
 <p>具体而言，在打开文件失败时就尝试创建文件，对新创建的文件执行写入操作即可。</p>
