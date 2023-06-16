@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>面向对象课程总结 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面向对象课程总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象课程总结">
+<meta property="og:url" content="http://example.com/2023/06/14/OO-Summary/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="面向对象课程总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/63af297f08b6830163f8a74b.jpg">
+<meta property="article:published_time" content="2023-06-14T04:22:03.000Z">
+<meta property="article:modified_time" content="2023-06-14T13:20:21.575Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="OO">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/63af297f08b6830163f8a74b.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/06/14/OO-Summary/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面向对象课程总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-14 21:20:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/63af297f08b6830163f8a74b.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面向对象课程总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-06-14T04:22:03.000Z" title="发表于 2023-06-14 12:22:03">2023-06-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%BE%E7%A8%8B/">面向对象课程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/06/14/OO-Summary/" data-flag-title="面向对象课程总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本学期的 <strong>OO</strong> 课程终于来到了尾声。在此简单地回顾一下本学期的 <strong>OO</strong> 课程，谈一谈我个人都学到了什么东西。</p>
+<h2 id="第一单元"><a href="#第一单元" class="headerlink" title="第一单元"></a>第一单元</h2><p>表达式的解析。第一次作业上来的时候很头疼，因为既不懂递归下降又不懂 <strong>Java</strong>，体验奇差无比。但是第一次作业最后还是靠着学长和同学的帮助下熬了过去。</p>
+<p>在理解了递归下降后，第二次作业起情况就有了明显的好转。</p>
+<p>在第一单元的学习过程中获得了算法能力上的提升。同时第一单元也是我刀的很爽的一次。</p>
+<h2 id="第二单元"><a href="#第二单元" class="headerlink" title="第二单元"></a>第二单元</h2><p>第二单元的难度很大。虽然本意是多线程程序设计，但是我却造了个状态机出来…一言难尽啊一言难尽。</p>
+<p>第二单元寄的也比较惨。因为两个小 <strong>bug</strong> 而痛寄，想想真是太不值得了。</p>
+<p>第二单元写的评测机很不错，又学到了一些 <strong>C++</strong> 小知识呢（笑。这单元我自己学习了不少 <strong>Java</strong> 的特性，也算是有所收获。</p>
+<h2 id="第三单元"><a href="#第三单元" class="headerlink" title="第三单元"></a>第三单元</h2><p>第三单元的时候前两次作业体验尚可，第三次作业的最短环属实是有一点考验算法能力了。不过和同学讨论过之后也都顺利的通过了。体感上其实比一二单元都要好一些？</p>
+<p>此外这单元搓数据搓的很爽，虽然到现在还有一点点没有搞懂 <strong>OKTest</strong> 的意义何在…这单元想锻炼我们的测试能力，我觉得我的测试能力应该算是及格了吧…</p>
+<p>当初第三单元正好赶上五一放假，所以整体上时间还算比较充裕。这单元狠狠训练了一下阅读 <strong>JML</strong> 的能力和图算法的能力。<strong>Java</strong> 是世界上最好的语言。</p>
+<h2 id="第四单元"><a href="#第四单元" class="headerlink" title="第四单元"></a>第四单元</h2><p>第四单元突出的是一个麻烦、任务量大。可能很大的原因还是指导书表述得不够清晰吧…第十三次作业还挺顺利的，第十四次作业最大的问题就是指导书表述不清。不过我开工的时候指导书都已经修过了，所以我个人的体感其实也还行。第十四次作业基本上一晚上加一上午就写完了。第十三次作业到第十四次作业的迭代也很顺滑。第十五次作业很简单，改动几行就可以了。</p>
+<p>第四单元强调的是架构设计。我对我自己的架构设计基本还是挺满意的。到第十五次作业的时候突然有一种 “啊，<strong>OO</strong> 课要结束了啊” 的感觉。一学期的努力终究是迎来了尽头。</p>
+<h2 id="学习感悟"><a href="#学习感悟" class="headerlink" title="学习感悟"></a>学习感悟</h2><p>以下一些没有什么逻辑的想到哪写到哪的学习感悟（逃</p>
+<p>感觉确实学习到了很多面向对象的知识。</p>
+<p>在面向对象课程中我体悟最大的，是面向对象的<strong>封装性</strong>。常言道“要以最大的恶意揣度用户”，我们作为开发者，在代码的编写中一定要注意面向对象的<strong>封装性</strong>，只暴露必要的接口，具体的实现细节都应该是对用户透明的。不过在课程内容中好像并没有十分的强调这一点？我个人感觉可以在这方面多多训练。训练封装性其实也是对架构设计能力的训练。我发现很多同学在编写代码时都有一个很不好的习惯，就是将所有方法都设置为 <strong>public</strong>，我认为这是违背了面向对象的封装性的。</p>
+<p>此外学习到了一些设计模式，如工厂模式、生产者消费者模式等等。我认为在三四单元中其实也可以去介绍更多的设计模式。设计模式的学习带来的是思维的提升，比单纯码代码搓大模拟，可能更加贴合面向对象的初衷。（吐槽一下，大模拟什么的也太奇怪了，感觉就像在大一写程序设计一样，大模拟用 <strong>Java</strong> 写也是写，用 <strong>C</strong> 写也是写，感觉没有体现出面向对象的优势，只是在强调架构的设计倒不如通过学习设计模式锻炼架构）</p>
+<p>第三单元的 <strong>JML</strong> 感觉其实是一个比较好的尝试，优缺点都有。我认为本单元比较考验助教的能力，<strong>JML</strong> 的编写实在是太不容易了。但是如果编写的好，一个优秀的架构 + 优秀的 <strong>JML</strong>，绝对是能够让同学们受益匪浅的。一个不太成熟的想法是在第三单元中设计出相对复杂的架构，通过 <strong>JML</strong> 向同学们传达代码的信息，从而让同学们在编写代码的过程中体会到架构的好处。本学期的第三单元感觉在架构上还是稍微有一些欠缺的？（好吧写到这里突然有一点当第三单元助教的心思了，可惜写到这里的时候已经截止报名了）</p>
+<p>第四单元…今年的改革可以说是一次大胆的尝试，不过可能助教们稍微低估了大模拟的难度。</p>
+<p>哦，除了封装性，我本学期还学到的很好的一个思想是“不要过早优化”。过早的优化是万恶之源。我很赞同的一句话是“让很快的代码正确，比让正确的代码更快困难得多”。写代码，第一要务是正确性，追求性能和速度要在正确性之后。第一次作业的时候就有一点因为想过早优化导致写的很痛苦。</p>
+<p>这学期也训练了一下代码风格。虽然我自认为自己的代码风格已经不错了，不过在课程组的训练下还是又获得了一些长进。</p>
+<p>此外，学习到的一个思想是“少写注释”。这句话的意思是应当让自己的代码变得像注释一样通俗易懂（通过合理的命名和组织结构等）。</p>
+<p>在本学期的课程中训练了编写具有一定规模代码的能力。一周憋一千行什么的以前是不敢想，现在感觉也就轻轻松吧。</p>
+<p>其实感觉这学期的面向对象是基于 <strong>Java</strong> 学习的，但是却对 <strong>Java</strong> 没有什么专门的学习。我觉得 <strong>Java</strong> 作为典型的面向对象语言，其实可以多学习一些 <strong>Java</strong> 的特性。虽然这可能与面向对象的关系不太大，但是我认为学习语言的特性也是学习编程过程中很重要的一环。根据我的观察，同学们编写代码中遇到的很多困难、写的很多代码有问题都是因为不了解 <strong>Java</strong> 的特性导致的。</p>
+<p>然后我觉得第四单元的输出实在是太多太繁杂了…麻烦到我感觉没有什么意义。如果以后能改进一下就好了。（直接 <strong>push</strong> 身边当助教的同学（雾</p>
+<p>很可惜由于个人学业安排没有冲 <strong>OO</strong> 助教。现在想想又有点后悔了呜呜…</p>
+<p>从一开始的不知道该怎么测试，到后来能够和同学一起写评测机，自己能够思考如何搓数据、写数据生成，感觉自己的测试能力有了很大的长进。</p>
+<p>再看看自己架构设计的能力，感觉从一开始是无所适从，到现在能设计出让自己满意的架构，我认为我的收获是蛮大的。要将设计模式融入自己的架构设计，通过学习、理解前人的思想，让自己的代码更加优美好看。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/06/14/OO-Summary/">http://example.com/2023/06/14/OO-Summary/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO/">OO</a><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/63af297f08b6830163f8a74b.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/14/OS-lab2/"><img class="prev-cover" src="https://pic.imgdb.cn/item/63af297f08b6830163f8a74b.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS-Lab2总结</div></div></a></div><div class="next-post pull-right"><a href="/2023/06/13/OO-unit4/"><img class="next-cover" src="https://pic.imgdb.cn/item/63af297f08b6830163f8a763.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面向对象课程 Unit4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/02/28/OO-hw1/" title="面向对象课程 HW1"><img class="cover" src="https://pic.imgdb.cn/item/63fdbc21f144a01007d21b1f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-28</div><div class="title">面向对象课程 HW1</div></div></a></div><div><a href="/2023/05/17/OO-hw10/" title="面向对象课程 HW10"><img class="cover" src="https://pic2.imgdb.cn/item/646512640d2dde5777552c18.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-17</div><div class="title">面向对象课程 HW10</div></div></a></div><div><a href="/2023/05/17/OO-hw11/" title="面向对象课程 HW11"><img class="cover" src="https://pic2.imgdb.cn/item/646512730d2dde57775536a3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-17</div><div class="title">面向对象课程 HW11</div></div></a></div><div><a href="/2023/03/04/OO-hw2/" title="面向对象课程 HW2"><img class="cover" src="https://pic.imgdb.cn/item/64023f62f144a010077073fe.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-04</div><div class="title">面向对象课程 HW2</div></div></a></div><div><a href="/2023/04/13/OO-hw7/" title="面向对象课程 HW7"><img class="cover" src="https://pic.imgdb.cn/item/6437b7c70d2dde5777413355.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-13</div><div class="title">面向对象课程 HW7</div></div></a></div><div><a href="/2023/03/25/OO-hw5/" title="面向对象课程 HW5"><img class="cover" src="https://pic.imgdb.cn/item/642003fda682492fcc97ca4b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-25</div><div class="title">面向对象课程 HW5</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description">青豆的奇妙冒险</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83"><span class="toc-number">1.</span> <span class="toc-text">第一单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83"><span class="toc-number">2.</span> <span class="toc-text">第二单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%8D%95%E5%85%83"><span class="toc-number">3.</span> <span class="toc-text">第三单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E5%8D%95%E5%85%83"><span class="toc-number">4.</span> <span class="toc-text">第四单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%84%9F%E6%82%9F"><span class="toc-number">5.</span> <span class="toc-text">学习感悟</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
