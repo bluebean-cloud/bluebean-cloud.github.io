@@ -4,25 +4,6 @@
   
     
     <entry>
-      <title>HTML 学习笔记</title>
-      <link href="/2023/07/14/html/"/>
-      <url>/2023/07/14/html/</url>
-      
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>HTML</strong> 是一种标记语言，是前端</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> HTML </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Django 学习笔记_1</title>
       <link href="/2023/07/14/Django-1/"/>
       <url>/2023/07/14/Django-1/</url>
