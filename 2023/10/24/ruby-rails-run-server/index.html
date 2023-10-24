@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>rails server 调研 | Bluebean's Blog</title><meta name="author" content="Bluebean"><meta name="copyright" content="Bluebean"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="rails s 时都发生了什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails server 调研">
+<meta property="og:url" content="http://example.com/2023/10/24/ruby-rails-run-server/index.html">
+<meta property="og:site_name" content="Bluebean&#39;s Blog">
+<meta property="og:description" content="rails s 时都发生了什么">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537baf1c458853aef11adef.jpg">
+<meta property="article:published_time" content="2023-10-24T12:34:26.000Z">
+<meta property="article:modified_time" content="2023-10-24T12:39:31.682Z">
+<meta property="article:author" content="Bluebean">
+<meta property="article:tag" content="Ruby">
+<meta property="article:tag" content="Ruby on Railss">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6537baf1c458853aef11adef.jpg"><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="http://example.com/2023/10/24/ruby-rails-run-server/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'rails server 调研',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-24 20:39:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/6537baf1c458853aef11adef.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Bluebean's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">rails server 调研</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-10-24T12:34:26.000Z" title="发表于 2023-10-24 20:34:26">2023-10-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2023/10/24/ruby-rails-run-server/" data-flag-title="rails server 调研"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="rails-server-调研"><a href="#rails-server-调研" class="headerlink" title="rails server 调研"></a>rails server 调研</h1><h2 id="访问流程"><a href="#访问流程" class="headerlink" title="访问流程"></a>访问流程</h2><p>在浏览器发起请求后，URL 由路由（<code>route.rb</code>）解析，确定交由哪个控制器控制并解析得到参数。之后调用 erb 模板，生成 HTML，将此 HTML 返回到浏览器进行渲染呈现。</p>
+<p>以 cookbook3 项目作为示例，当我们访问 <code>http://127.0.0.1:3000/</code> 时，我们得到的日志如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Started GET &quot;/&quot; for 127.0.0.1 at 2023-10-24 19:24:03 +0800</span><br><span class="line">  ActiveRecord::SchemaMigration Load (0.2ms)  SELECT &quot;schema_migrations&quot;.&quot;version&quot; FROM &quot;schema_migrations&quot; ORDER BY &quot;schema_migrations&quot;.&quot;version&quot; ASC</span><br><span class="line">Processing by RecipesController#index as HTML</span><br><span class="line">  Rendering layout layouts/application.html.erb</span><br><span class="line">  Rendering recipes/index.html.erb within layouts/application</span><br><span class="line">  Recipe Load (0.1ms)  SELECT &quot;recipes&quot;.* FROM &quot;recipes&quot;</span><br><span class="line">  ↳ app/views/recipes/index.html.erb:6</span><br><span class="line">  Category Load (0.1ms)  SELECT &quot;categories&quot;.* FROM &quot;categories&quot; WHERE &quot;categories&quot;.&quot;id&quot; = ? LIMIT ?  [[&quot;id&quot;, 1], [&quot;LIMIT&quot;, 1]]</span><br><span class="line">  ↳ app/views/recipes/_recipe.html.erb:9</span><br><span class="line">  Rendered recipes/_recipe.html.erb (Duration: 86.3ms | Allocations: 11430)</span><br><span class="line">  Category Load (0.0ms)  SELECT &quot;categories&quot;.* FROM &quot;categories&quot; WHERE &quot;categories&quot;.&quot;id&quot; = ? LIMIT ?  [[&quot;id&quot;, 2], [&quot;LIMIT&quot;, 1]]</span><br><span class="line">  ↳ app/views/recipes/_recipe.html.erb:9</span><br><span class="line">  Rendered recipes/_recipe.html.erb (Duration: 1.0ms | Allocations: 492)</span><br><span class="line">  CACHE Category Load (0.0ms)  SELECT &quot;categories&quot;.* FROM &quot;categories&quot; WHERE &quot;categories&quot;.&quot;id&quot; = ? LIMIT ?  [[&quot;id&quot;, 2], [&quot;LIMIT&quot;, 1]]</span><br><span class="line">  ↳ app/views/recipes/_recipe.html.erb:9</span><br><span class="line">  Rendered recipes/_recipe.html.erb (Duration: 0.7ms | Allocations: 448)</span><br><span class="line">  Rendered recipes/index.html.erb within layouts/application (Duration: 131.1ms | Allocations: 24227)</span><br><span class="line">  Rendered layout layouts/application.html.erb (Duration: 362.1ms | Allocations: 50060)</span><br><span class="line">Completed 200 OK in 498ms (Views: 380.8ms | ActiveRecord: 0.9ms | Allocations: 67023)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在日志头记录了请求的类型、日期和来源。随后 <code>ActiveRecord::SchemaMigration Load</code> 进行数据库查询，检查数据库中的迁移版本。这是在检查数据库结构是否与应用程序期望的相匹配。</p>
+<p><code>Processing by RecipesController#index as HTML</code> 这句话意为该请求由 <code>RecipeController</code> 控制器进行处理，转发为 <code>#index</code> 操作，并且期待 <code>HTML</code> 响应。</p>
+<p><code>Rendering layout layouts/application.html.erb</code> 指出了正在呈现应用程序的主布局文件 <code>application.html.erb</code></p>
+<p><code>Rendering recipes/index.html.erb within layouts/application</code> 意为 <code>recipes/index.html.erb</code> 视图嵌套于主布局中。</p>
+<p><code>Recipe Load (0.1ms)  SELECT &quot;recipes&quot;.* FROM &quot;recipes&quot;</code> 表示 SQL 查询，从数据库中查询 recipes 的数据。之后的几句日志都意为从数据库中查询、获取数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Rendered recipes/_recipe.html.erb (Duration: 0.7ms | Allocations: 448)</span><br><span class="line">Rendered recipes/index.html.erb within layouts/application (Duration: 131.1ms | Allocations: 24227)</span><br><span class="line">Rendered layout layouts/application.html.erb (Duration: 362.1ms | Allocations: 50060)</span><br></pre></td></tr></table></figure>
+<p>表明已成功返回 Render，网页成功呈现。</p>
+<p><code>Completed 200 OK in 498ms (Views: 380.8ms | ActiveRecord: 0.9ms | Allocations: 67023)</code> 这是日志的结束部分，指明整个请求处理的耗费时间、状态码、以及资源分配信息。</p>
+<h2 id="Rails-启动流程"><a href="#Rails-启动流程" class="headerlink" title="Rails 启动流程"></a>Rails 启动流程</h2><h3 id="config-boot-rb-文件"><a href="#config-boot-rb-文件" class="headerlink" title="config/boot.rb 文件"></a><code>config/boot.rb</code> 文件</h3><p>此文件包含如下内容：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">ENV</span>[<span class="string">&quot;BUNDLE_GEMFILE&quot;</span>] |<span class="params"></span>|= <span class="title class_">File</span>.expand_path(<span class="string">&quot;../Gemfile&quot;</span>, __dir__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;bundler/setup&quot;</span> <span class="comment"># Set up gems listed in the Gemfile.</span></span><br><span class="line"><span class="comment"># require &quot;bootsnap/setup&quot; # Speed up boot time by caching expensive operations.</span></span><br></pre></td></tr></table></figure>
+<p>环境变量 <code>BUNDLE_GEMFILE</code> 的作用是制定 bundle 文件路径。</p>
+<p><code>require &quot;bundle/setup&quot;</code> 的目的是加载 Bundler 库并设置应用程序的环境。Bundler 是 Ruby 的依赖管理器，用于管理应用程序所需的 Gem 依赖项。</p>
+<p>其具体会做以下事情：</p>
+<ol>
+<li>加载 Bundle 库。</li>
+<li>设置 Gem 加载路径。</li>
+<li>检查 Gem 依赖项。</li>
+</ol>
+<p><code># require &quot;bootsnap/setup&quot; # Speed up boot time by caching expensive operations.</code> 这句话会用于加速 rails 的启动速度。但是在我的本机上由于某些兼容问题，导致包含此选项会报错，无法启动 rails server，故而将其注掉。</p>
+<h3 id="bin-rails-rb-文件"><a href="#bin-rails-rb-文件" class="headerlink" title="bin/rails.rb 文件"></a><code>bin/rails.rb</code> 文件</h3><p>内容如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env ruby.exe</span></span><br><span class="line"><span class="variable constant_">APP_PATH</span> = <span class="title class_">File</span>.expand_path(<span class="string">&quot;../config/application&quot;</span>, __dir__)</span><br><span class="line">require_relative <span class="string">&quot;../config/boot&quot;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;rails/commands&quot;</span></span><br></pre></td></tr></table></figure>
+<p>其中 <code>rails/commands.rb</code> 内容如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frozen_string_literal: true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;rails/command&quot;</span></span><br><span class="line"></span><br><span class="line">aliases = &#123;</span><br><span class="line">  <span class="string">&quot;g&quot;</span>  =&gt; <span class="string">&quot;generate&quot;</span>,</span><br><span class="line">  <span class="string">&quot;d&quot;</span>  =&gt; <span class="string">&quot;destroy&quot;</span>,</span><br><span class="line">  <span class="string">&quot;c&quot;</span>  =&gt; <span class="string">&quot;console&quot;</span>,</span><br><span class="line">  <span class="string">&quot;s&quot;</span>  =&gt; <span class="string">&quot;server&quot;</span>,</span><br><span class="line">  <span class="string">&quot;db&quot;</span> =&gt; <span class="string">&quot;dbconsole&quot;</span>,</span><br><span class="line">  <span class="string">&quot;r&quot;</span>  =&gt; <span class="string">&quot;runner&quot;</span>,</span><br><span class="line">  <span class="string">&quot;t&quot;</span>  =&gt; <span class="string">&quot;test&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">command = <span class="variable constant_">ARGV</span>.shift</span><br><span class="line">command = aliases[command] |<span class="params"></span>| command</span><br><span class="line"></span><br><span class="line"><span class="title class_">Rails</span><span class="symbol">:</span><span class="symbol">:Command</span>.invoke command, <span class="variable constant_">ARGV</span></span><br></pre></td></tr></table></figure>
+<p>这部分内容主要在于对控制台指令的转发。例如，如果我们输入 <code>rails s</code>，则会被解释成 <code>rails server</code>。</p>
+<h3 id="Gem-包的加载顺序"><a href="#Gem-包的加载顺序" class="headerlink" title="Gem 包的加载顺序"></a>Gem 包的加载顺序</h3><p>列在 <code>Gemfile</code> 中的包通常是按照声明顺序加载的。有些 Gem 包之间可能存在依赖关系，Bundler 会确保存在依赖的 Gem 在加载时正确处理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bluebean</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/24/ruby-rails-run-server/">http://example.com/2023/10/24/ruby-rails-run-server/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bluebean's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ruby/">Ruby</a><a class="post-meta__tags" href="/tags/Ruby-on-Railss/">Ruby on Railss</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/6537baf1c458853aef11adef.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/11/ruby-study-0/"><img class="next-cover" src="https://pic.imgdb.cn/item/6526c1fbc458853aef9bad1a.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ruby 学习：绪论与基础语法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/11/ruby-study-0/" title="Ruby 学习：绪论与基础语法"><img class="cover" src="https://pic.imgdb.cn/item/6526c1fbc458853aef9bad1a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-11</div><div class="title">Ruby 学习：绪论与基础语法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/63ada05108b6830163098865.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Bluebean</div><div class="author-info__description">青豆的奇妙冒险</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/bluebean-cloud"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rails-server-%E8%B0%83%E7%A0%94"><span class="toc-number">1.</span> <span class="toc-text">rails server 调研</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">访问流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rails-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">Rails 启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#config-boot-rb-%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">config&#x2F;boot.rb 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bin-rails-rb-%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.2.</span> <span class="toc-text">bin&#x2F;rails.rb 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gem-%E5%8C%85%E7%9A%84%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">Gem 包的加载顺序</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/img/77992108_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Bluebean</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">心之所在，万事可期</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Xq2IajtknqeOSMjyjYHMBrbV-gzGzoHsz',
+      appKey: 'vd9aPUZLzcMDZ8cda6S4xIev',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7995341293" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrcType="-1"> </div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
